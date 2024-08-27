@@ -5,6 +5,9 @@ import { todoApi } from "./reducers/todo";
 import { authApi } from "./reducers/auth";
 import authReducer from "./reducers/authSlice";
 import allUsersReducer from "./reducers/allUsersSlice";
+import oneConvReducer from "./reducers/conversations/oneConvSlice";
+import oneUserReducer from "./reducers/oneUserSlice";
+import convListReducer from "./reducers/conversations/convListSlice";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +16,9 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     user: authReducer,
     allUsers: allUsersReducer,
+    oneConv: oneConvReducer,
+    oneUser: oneUserReducer,
+    convList: convListReducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.

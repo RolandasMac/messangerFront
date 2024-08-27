@@ -17,6 +17,7 @@ function Layout(props) {
             <li>{<Link to="/createuser">Create user</Link>}</li>
             <li>{<Link to="/login">Login</Link>}</li>
             <li>{<Link to="/chat">Chat</Link>}</li>
+            <li>{<Link to="/conversations">Pokalbiai</Link>}</li>
           </ul>
         </div>
         <div className="flex-1 w-32">

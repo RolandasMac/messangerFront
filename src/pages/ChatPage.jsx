@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../reducers/allUsersSlice";
+import { useNavigate } from "react-router";
 // const socket = io("http://localhost:5004"); // Adjust this if your server is on a different port
 
 const ChatPage = ({ socket, conectedUsers, messages }) => {
@@ -16,6 +17,8 @@ const ChatPage = ({ socket, conectedUsers, messages }) => {
   const user = useSelector((state) => {
     return state.user;
   });
+
+  const navigate = useNavigate();
 
   const joinRoom = () => {
     if (room !== "") {
@@ -99,8 +102,13 @@ const ChatPage = ({ socket, conectedUsers, messages }) => {
         {allUsers.allUsers.length &&
           allUsers.allUsers.map((cur) => {
             if (cur._id !== user.user.id) {
+              // console.log(cur);
               return (
-                <div className="flex flex-row items-center gap-2 bg-slate-100">
+                <div
+                  className="flex flex-row items-center gap-2 bg-slate-100"
+                  onClick={() => navigate(`/oneuser/${cur._id}`)}
+                  key={cur._id}
+                >
                   <div
                     className={
                       cur.isOnline ? "avatar online" : "avatar  offline"

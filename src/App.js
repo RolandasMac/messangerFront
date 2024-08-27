@@ -14,6 +14,8 @@ import { getAllUsers } from "./reducers/allUsersSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { autologinUser } from "./reducers/authSlice.js";
 import ProfilePage from "./pages/ProfilePage.jsx";
+import OneUserPage from "./pages/OneUserPage.jsx";
+import ConversationsPage from "./pages/ConversationsPage.jsx";
 
 function App() {
   //**************************** */
@@ -129,6 +131,11 @@ function App() {
             }
           />
           <Route path="profile" element={<ProfilePage />} />
+          <Route path="oneuser/:userId" element={<OneUserPage />} />
+          <Route
+            path="conversations/:convId?"
+            element={<ConversationsPage socket={socket} />}
+          />
         </Route>
       </Routes>
     </>
