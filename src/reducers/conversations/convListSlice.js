@@ -38,13 +38,14 @@ const convListSlice = createAppSlice({
       async (__, { rejectWithValue }) => {
         try {
           const response = await fetch(
-            `http://localhost:4001/conversations/getconversationslist`,
+            `https://localhost:4001/conversations/getconversationslist`,
             {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
               },
-              // mode: "no-cors",
+              credentials: "include",
+              mode: "cors",
             }
           );
           // console.log(response);

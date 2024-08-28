@@ -38,13 +38,16 @@ const allUsersSlice = createAppSlice({
       async (__, { rejectWithValue }) => {
         try {
           const response = await fetch(
-            `http://localhost:4001/auth/getallusers`,
+            `https://localhost:4001/auth/getallusers`,
             {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
               },
-              // mode: "no-cors",
+              credentials: "include",
+              // withCredentials: true,
+              // body: JSON.stringify(sendData),
+              // mode: "cors",
             }
           );
           // console.log(response);

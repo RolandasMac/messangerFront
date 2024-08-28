@@ -2,8 +2,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneConv } from "../reducers/conversations/oneConvSlice";
 
-const ConversationItem = ({ conversation, onSelectConversation }) => {
-  const { participantsRes } = conversation;
+const ConversationItem = ({
+  conversation,
+  onSelectConversation,
+  curUserId,
+}) => {
+  const { convParticipants } = conversation;
   const dispatch = useDispatch();
 
   const handleClick = ({ convId }) => {
@@ -13,7 +17,7 @@ const ConversationItem = ({ conversation, onSelectConversation }) => {
   return (
     <li onClick={() => handleClick(conversation)}>
       <div className="flex flex-row gap-1">
-        {participantsRes.map((participant) => (
+        {convParticipants.map((participant) =>
           // <span key={participant.userId} style={{ marginRight: "10px" }}>
           //   <img
           //     src={participant.avatar}
@@ -24,19 +28,23 @@ const ConversationItem = ({ conversation, onSelectConversation }) => {
           //   {participant.userName}
           // </span>
 
-          <div
-            className="flex flex-row items-center gap-2 bg-slate-100"
-            // onClick={() => navigate(`/oneuser/${cur._id}`)}
-            key={participant._id}
-          >
-            <div className="avatar">
-              <div className="w-6 rounded-full">
-                <img src={participant.photo} />
+          curUserId !== participant.userId ? (
+            <div
+              className="flex flex-row items-center gap-2 bg-slate-100"
+              // onClick={() => navigate(`/oneuser/${cur._id}`)}
+              key={participant.userId}
+            >
+              <div className="avatar">
+                <div className="w-6 rounded-full">
+                  <img src={participant.userInfo.photo} />
+                </div>
               </div>
+              {/* <span>{participant.userName}</span> */}
             </div>
-            {/* <span>{participant.userName}</span> */}
-          </div>
-        ))}
+          ) : (
+            <div></div>
+          )
+        )}
       </div>
     </li>
   );

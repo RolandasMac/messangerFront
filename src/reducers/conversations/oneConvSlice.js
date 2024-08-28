@@ -8,44 +8,45 @@ const oneConvSlice = createAppSlice({
   name: "oneConv",
   initialState: {
     loading: false,
-    oneConv: {},
+    oneConv: {
+      _id: null,
+    },
     error: null,
   },
   reducers: (create) => ({
     // A normal "case reducer", same as always
-    deleteUser: create.reducer((state, action) => {
-      state.user = {
-        loading: false,
-        user: {},
-        error: null,
-        logged: false,
-      };
-    }),
+    // deleteUser: create.reducer((state, action) => {
+    //   state.user = {
+    //     loading: false,
+    //     user: {},
+    //     error: null,
+    //     logged: false,
+    //   };
+    // }),
     // A case reducer with a "prepare callback" to customize the action
-    // addMessage: create.preparedReducer(
-    //   (message) => {
-    //     const id = new Date();
-    //     return { payload: { id, user } };
-    //   },
-    //   // action type is inferred from prepare callback
-    //   (state, action) => {
-    //     state.user.push(action.payload.user);
-    //   }
-    // ),
+    addMessage: create.preparedReducer(
+      (message) => {
+        return { payload: { message: message } };
+      },
+      (state, action) => {
+        state.oneConv.messages.push(action.payload.message);
+      }
+    ),
     // An async thunk
     getOneConv: create.asyncThunk(
       // Async payload function as the first argument
       async (sendData, { rejectWithValue, dispatch }) => {
         try {
           const response = await fetch(
-            `http://localhost:4001/conversations/create`,
+            `https://localhost:4001/conversations/create`,
             {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
+              credentials: "include",
               body: JSON.stringify(sendData),
-              // mode: "no-cors",
+              mode: "cors",
             }
           );
           console.log(response);
@@ -84,13 +85,14 @@ const oneConvSlice = createAppSlice({
       async (convId, { rejectWithValue, dispatch }) => {
         try {
           const response = await fetch(
-            `http://localhost:4001/conversations/getconversationbyid/${convId}`,
+            `https://localhost:4001/conversations/getconversationbyid/${convId}`,
             {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
               },
-              // mode: "no-cors",
+              credentials: "include",
+              mode: "cors",
             }
           );
           // console.log(response);
@@ -100,7 +102,7 @@ const oneConvSlice = createAppSlice({
             throw new Error("Server error:" + errorData.message);
           }
           const data = await response.json();
-          console.log(data);
+          // console.log(data);
           return { data };
         } catch (error) {
           // console.log(error);
@@ -116,6 +118,7 @@ const oneConvSlice = createAppSlice({
           // console.log(action.error, action.payload);
         },
         fulfilled: (state, action) => {
+          console.log(action.payload.data);
           state.oneConv = action.payload.data;
         },
         // settled is called for both rejected and fulfilled actions
@@ -126,8 +129,5 @@ const oneConvSlice = createAppSlice({
     ),
   }),
 });
-
-// `addTodo` and `deleteTodo` are normal action creators.
-// `fetchTodo` is the async thunk
-export const { getOneConv, getOneConvById } = oneConvSlice.actions;
+export const { getOneConv, getOneConvById, addMessage } = oneConvSlice.actions;
 export default oneConvSlice.reducer;

@@ -37,13 +37,16 @@ const authSlice = createAppSlice({
       // Async payload function as the first argument
       async (sendData, { rejectWithValue, dispatch }) => {
         try {
-          const response = await fetch(`http://localhost:4001/auth/login`, {
+          const response = await fetch(`https://localhost:4001/auth/login`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              // "Access-Control-Allow-Credentials": true,
+              "Access-Control-Allow-Headers": "Coookie",
             },
+            credentials: "include",
             body: JSON.stringify(sendData),
-            // mode: "no-cors",
+            mode: "cors",
           });
           // console.log(response);
           if (!response.ok) {
@@ -86,14 +89,18 @@ const authSlice = createAppSlice({
       // Async payload function as the first argument
       async (token, { rejectWithValue, dispatch }) => {
         try {
-          const response = await fetch(`http://localhost:4001/auth/autologin`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(token),
-            // mode: "no-cors",
-          });
+          const response = await fetch(
+            `https://localhost:4001/auth/autologin`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+              body: JSON.stringify(token),
+              mode: "cors",
+            }
+          );
           // console.log(response);
           if (!response.ok) {
             const errorData = await response.json();

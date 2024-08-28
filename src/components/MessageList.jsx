@@ -5,14 +5,19 @@ const MessageList = ({ messages, convId, socket }) => {
   const user = useSelector((state) => {
     return state.user.user;
   });
+  const oneConv = useSelector((state) => {
+    return state.oneConv.oneConv;
+  });
   const messageRef = useRef();
   function sendMessage() {
+    // alert(oneConv._id + " " + user.id);
+
     const message = messageRef.current.value;
     if (message !== "") {
       socket.emit("chatMessage", {
         userId: user.id,
         message,
-        toConv: convId,
+        toConv: oneConv._id,
       });
       messageRef.current.value = "";
     }
@@ -20,11 +25,15 @@ const MessageList = ({ messages, convId, socket }) => {
 
   return (
     <div>
+      <div>
+        <input ref={messageRef} type="text" placeholder="Rašykite žinutę" />
+        <button onClick={sendMessage}>Siųsti</button>
+      </div>
       <ul>
         {messages &&
-          messages.map((message) => (
-            <div
-              key={message._id}
+          messages.toReversed().map((message, index) => (
+            <li
+              key={index}
               className={
                 user.id === message.ownerId
                   ? "chat chat-end"
@@ -47,13 +56,9 @@ const MessageList = ({ messages, convId, socket }) => {
               </div>
               <div className="chat-bubble">{message.message}</div>
               <div className="chat-footer opacity-50">Delivered</div>
-            </div>
+            </li>
           ))}
       </ul>
-      <div>
-        <input ref={messageRef} type="text" placeholder="Rašykite žinutę" />
-        <button onClick={sendMessage}>Siųsti</button>
-      </div>
     </div>
   );
 };

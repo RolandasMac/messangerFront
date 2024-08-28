@@ -7,10 +7,14 @@ import { useNavigate } from "react-router";
 const ConversationList = ({ onSelectConversation }) => {
   const dispatch = useDispatch();
   const convList = useSelector((state) => {
+    console.log(state.convList.convList);
     return state.convList.convList;
   });
   const currentConversation = useSelector((state) => {
     return state.oneConv.oneConv;
+  });
+  const currentUser = useSelector((state) => {
+    return state.user.user;
   });
   const navigate = useNavigate();
 
@@ -19,11 +23,6 @@ const ConversationList = ({ onSelectConversation }) => {
   }, []);
   return (
     <ul className="flex flex-col gap-5">
-      {/* <button onClick={() => console.log(currentConversation)}>
-        gauti listą
-      </button>
-      <button onClick={() => console.log(conv)}>gauti current conv</button> */}
-
       {convList.length &&
         convList.map((conv) => {
           return (
@@ -36,10 +35,20 @@ const ConversationList = ({ onSelectConversation }) => {
               }
               onClick={() => navigate(`/conversations/${conv._id}`)}
             >
+              <span>
+                New msg(
+                {
+                  conv.convParticipants.find((cur) => {
+                    return cur.userId === currentUser.id;
+                  }).hasNewMsg
+                }
+                )
+              </span>
               <ConversationItem
                 key={conv._id}
                 conversation={conv}
                 onSelectConversation={onSelectConversation}
+                curUserId={currentUser.id}
               />
             </div>
           );

@@ -6,34 +6,6 @@ import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneConvById } from "../reducers/conversations/oneConvSlice";
 
-// Mock data for conversations
-const mockConversations = [
-  {
-    convId: "1",
-    convParticipants: [
-      { userId: "user1", userName: "John Doe", avatar: "avatar1.png" },
-      { userId: "user2", userName: "Jane Smith", avatar: "avatar2.png" },
-    ],
-    messages: [
-      {
-        message: "Hello, how are you?",
-        owner: { userId: "user1", userName: "John Doe", avatar: "avatar1.png" },
-        createdAt: "2023-08-21T10:00:00Z",
-      },
-      {
-        message: "I am good, thanks!",
-        owner: {
-          userId: "user2",
-          userName: "Jane Smith",
-          avatar: "avatar2.png",
-        },
-        createdAt: "2023-08-21T10:05:00Z",
-      },
-    ],
-  },
-  // Add more conversations here
-];
-
 function ConversationsPage({ socket }) {
   const currentConversation = useSelector((state) => {
     return state.oneConv.oneConv;
@@ -43,28 +15,26 @@ function ConversationsPage({ socket }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // console.log(currentConversation);
     setSelectedConversation(convId);
-    console.log(convId);
+    // alert("dispatch one conv " + convId);
     dispatch(getOneConvById(convId));
   }, [convId]);
 
   const handleSelectConversation = (conversation) => {
     setSelectedConversation(conversation);
-    //parsiųsti conversation pagal id
   };
 
   return (
     <>
-      <div style={{ display: "flex" }}>
-        <div style={{ width: "30%" }}>
+      <button onClick={() => alert(selectedConversation)}>
+        One conversation
+      </button>
+      <div className="flex flex-row">
+        <div className="w-36">
           <h2>Conversations</h2>
-          <ConversationList
-            // conversations={mockConversations}
-            onSelectConversation={handleSelectConversation}
-          />
+          <ConversationList onSelectConversation={handleSelectConversation} />
         </div>
-        <div style={{ width: "70%", padding: "0 20px" }}>
+        <div className="flex-1">
           <h2>Messages</h2>
           {selectedConversation ? (
             <MessageList

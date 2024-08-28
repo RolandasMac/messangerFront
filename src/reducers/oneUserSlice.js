@@ -38,13 +38,17 @@ const oneUserSlice = createAppSlice({
       // Async payload function as the first argument
       async (userId, { rejectWithValue }) => {
         try {
-          const response = await fetch(`http://localhost:4001/auth/${userId}`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            // mode: "no-cors",
-          });
+          const response = await fetch(
+            `https://localhost:4001/auth/${userId}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+              mode: "cors",
+            }
+          );
           // console.log(response);
           if (!response.ok) {
             const errorData = await response.json();
