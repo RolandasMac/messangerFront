@@ -8,8 +8,9 @@ const convListSlice = createAppSlice({
   name: "convList",
   initialState: {
     loading: false,
-    convList: {},
+    convList: [],
     error: null,
+    loaded: false,
   },
   reducers: (create) => ({
     // A normal "case reducer", same as always
@@ -93,6 +94,7 @@ const convListSlice = createAppSlice({
       {
         pending: (state) => {
           state.loading = true;
+          state.loaded = false;
         },
         rejected: (state, action) => {
           state.error = action.payload;
@@ -100,6 +102,7 @@ const convListSlice = createAppSlice({
         },
         fulfilled: (state, action) => {
           state.convList = action.payload.data;
+          state.loaded = true;
         },
         // settled is called for both rejected and fulfilled actions
         settled: (state, action) => {

@@ -4,18 +4,21 @@ import { getOneConv } from "../reducers/conversations/oneConvSlice";
 
 const ConversationItem = ({
   conversation,
-  onSelectConversation,
+  // onSelectConversation,
   curUserId,
 }) => {
   const { convParticipants } = conversation;
   const dispatch = useDispatch();
 
-  const handleClick = ({ convId }) => {
-    onSelectConversation(convId);
-  };
+  // const handleClick = ({ convId }) => {
+  //   onSelectConversation(convId);
+  // };
 
   return (
-    <li key={conversation._id} onClick={() => handleClick(conversation)}>
+    <div
+      key={conversation._id}
+      //  onClick={() => handleClick(conversation)}
+    >
       <div className="flex flex-row gap-1">
         {convParticipants.map((participant) =>
           // <span key={participant.userId} style={{ marginRight: "10px" }}>
@@ -46,7 +49,7 @@ const ConversationItem = ({
           )
         )}
       </div>
-    </li>
+    </div>
   );
 };
 

@@ -76,7 +76,15 @@ function OneUserPage({ socket }) {
         </div>
       )}
       <input ref={inputRef} type="text" placeholder="Rašykite žinutę" />
-      <button onClick={createConvAndSendMessage}>Siųsti žinutę</button>
+      <button
+        type="button"
+        name=""
+        id=""
+        className="btn btn-active"
+        onClick={createConvAndSendMessage}
+      >
+        Siųsti žinutę
+      </button>
     </>
   );
 }

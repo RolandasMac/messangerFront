@@ -104,7 +104,7 @@ function TodoPage(props) {
           />
           <button
             onClick={(event) => setTodo(event)}
-            className="btn btn-active hover:scale-95"
+            className="btn btn-active"
           >
             Sukurti užduotį
           </button>
@@ -129,10 +129,10 @@ function TodoPage(props) {
                 />
                 <span>
                   <button
-                    className="btn btn-active hover:scale-95"
+                    className="btn btn-active"
                     onClick={() => removeTodo(cur._id)}
                   >
-                    Trinti užduotį
+                    Sukurti užduotį
                   </button>
                 </span>
               </div>

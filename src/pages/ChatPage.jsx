@@ -44,12 +44,13 @@ const ChatPage = ({ socket, conectedUsers, messages }) => {
       <div>
         <button
           onClick={async () => {
-            // console.log(await dispatch(getAllUsers()));
             console.log(user);
           }}
+          className="btn btn-active"
         >
           Spausti
         </button>
+
         {!joinedRoom ? (
           <div>
             <h2>Join a Room</h2>
@@ -59,7 +60,9 @@ const ChatPage = ({ socket, conectedUsers, messages }) => {
               value={room}
               onChange={(e) => setRoom(e.target.value)}
             />
-            <button onClick={joinRoom}>Join Room</button>
+            <button onClick={joinRoom} className="btn btn-active">
+              Join Room
+            </button>
           </div>
         ) : (
           <div>
@@ -80,7 +83,9 @@ const ChatPage = ({ socket, conectedUsers, messages }) => {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
               />
-              <button type="submit">Send</button>
+              <button type="submit" className="btn btn-active">
+                Send
+              </button>
             </form>
           </div>
         )}

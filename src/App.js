@@ -19,6 +19,7 @@ import {
   getConvList,
   updateConvListHasNewMsg,
 } from "./reducers/conversations/convListSlice";
+import ChatWindow from "./pages/ChatWindowPage.jsx";
 
 function App() {
   const oneConv = useSelector((state) => {
@@ -84,7 +85,7 @@ function App() {
         if (newConverIdRef.current._id === lastMessage._id) {
           dispatch(addMessage(lastMessage.lastMessage));
         } else {
-          alert("suveikė");
+          // alert("suveikė");
           dispatch(getConvList());
         }
       });
@@ -127,6 +128,7 @@ function App() {
             path="conversations/:convId?"
             element={<ConversationsPage socket={socket} />}
           />
+          <Route path="chatwindow" element={<ChatWindow socket={socket} />} />
         </Route>
       </Routes>
     </>

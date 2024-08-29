@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const MessageList = ({ messages, convId, socket }) => {
@@ -22,17 +22,38 @@ const MessageList = ({ messages, convId, socket }) => {
       messageRef.current.value = "";
     }
   }
-
+  // const messagesEndRef = useRef(null);
+  // Scroll to the bottom when new messages are added
+  // useEffect(() => {
+  //   messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  // }, [messages]);
   return (
-    <div>
-      <div>
-        <input ref={messageRef} type="text" placeholder="Rašykite žinutę" />
-        <button onClick={sendMessage}>Siųsti</button>
+    <div className="flex flex-col h-full max-w-lg mx-auto bg-white shadow-lg rounded-lg">
+      <div className="p-4 border-b border-gray-200">
+        <h2 className="text-xl font-semibold">Chat Room</h2>
       </div>
-      <ul>
+
+      <div className="p-4 border-t border-gray-200">
+        <div className="flex">
+          <input
+            ref={messageRef}
+            type="text"
+            placeholder="Rašykite žinutę"
+            className="flex-1 px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            onClick={sendMessage}
+            className="px-4 py-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 btn btn-active"
+          >
+            Siųsti
+          </button>
+        </div>
+      </div>
+      {/* Messages */}
+      <div className="flex-1 p-4 overflow-y-auto">
         {messages &&
           messages.toReversed().map((message, index) => (
-            <li
+            <div
               key={index}
               className={
                 user.id === message.ownerId
@@ -56,9 +77,10 @@ const MessageList = ({ messages, convId, socket }) => {
               </div>
               <div className="chat-bubble">{message.message}</div>
               <div className="chat-footer opacity-50">Delivered</div>
-            </li>
+            </div>
           ))}
-      </ul>
+        {/* <div ref={messagesEndRef} /> */}
+      </div>
     </div>
   );
 };

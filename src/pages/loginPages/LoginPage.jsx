@@ -92,8 +92,9 @@ function LoginPage() {
             onClick={(event) => {
               sendData(event);
             }}
-            className="btn"
+            className="btn btn-active"
           >
+            {" "}
             Jungtis
           </button>
         </form>

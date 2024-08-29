@@ -100,6 +100,7 @@ function HomePage(props) {
           onClick={() => {
             // handlesubmit();
           }}
+          className="btn btn-active"
         >
           Spausti
         </button>
@@ -111,6 +112,7 @@ function HomePage(props) {
           onClick={() => {
             // handlesubmit1();
           }}
+          className="btn btn-active"
         >
           Spausti
         </button>
@@ -161,7 +163,7 @@ function HomePage(props) {
             type="button"
             name=""
             id=""
-            className="btn btn-primary"
+            className="btn btn-active"
           >
             Sukurti užduotį
           </button>
@@ -189,7 +191,7 @@ function HomePage(props) {
                     type="button"
                     name=""
                     id=""
-                    className="btn btn-primary"
+                    className="btn btn-active"
                     onClick={() => removeTodo(cur._id)}
                   >
                     Trinti užduotį

@@ -19,7 +19,7 @@ function Layout(props) {
   }, [currentConversation]);
   useEffect(() => {
     dispatch(getConvList()).then((data) => {
-      console.log(data);
+      // console.log(data);
       setId(
         data.payload.data.length > 0
           ? data.payload.data[0]._id
@@ -44,6 +44,7 @@ function Layout(props) {
             <li>{<Link to="/login">Login</Link>}</li>
             <li>{<Link to="/chat">Chat</Link>}</li>
             <li>{<Link to={`/conversations/${id}`}>Pokalbiai</Link>}</li>
+            <li>{<Link to={"/chatwindow"}>Pokalbiai1</Link>}</li>
           </ul>
         </div>
         <div className="flex-1 w-32">

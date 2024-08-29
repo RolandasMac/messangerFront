@@ -99,7 +99,7 @@ function SendEmailPage() {
             onClick={(event) => {
               sendData(event);
             }}
-            className="btn"
+            className="btn btn-active"
           >
             Siųsti
           </button>

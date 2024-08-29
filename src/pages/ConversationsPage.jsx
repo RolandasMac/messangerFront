@@ -26,19 +26,24 @@ function ConversationsPage({ socket }) {
     setOldId(convId);
   }, [convId]);
 
-  const handleSelectConversation = (conversation) => {
-    setSelectedConversation(conversation);
-  };
+  // const handleSelectConversation = (conversation) => {
+  //   setSelectedConversation(conversation);
+  // };
 
   return (
     <>
-      <button onClick={() => alert(selectedConversation)}>
+      {/* <button
+        onClick={() => alert(selectedConversation)}
+        className="btn btn-active"
+      >
         One conversation
-      </button>
+      </button> */}
       <div className="flex flex-row">
         <div className="w-36">
-          <h2>Conversations</h2>
-          <ConversationList onSelectConversation={handleSelectConversation} />
+          <h2>Pokalbių dalyviai</h2>
+          <ConversationList
+          //  onSelectConversation={handleSelectConversation}
+          />
         </div>
         <div className="flex-1">
           <h2>Messages</h2>

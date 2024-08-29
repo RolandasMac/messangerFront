@@ -105,8 +105,9 @@ function CreateUserPage() {
             onClick={(event) => {
               sendData(event);
             }}
-            className="btn"
+            className="btn btn-active"
           >
+            {" "}
             Siųsti
           </button>
         </form>
