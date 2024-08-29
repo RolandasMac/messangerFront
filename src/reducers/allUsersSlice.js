@@ -57,7 +57,7 @@ const allUsersSlice = createAppSlice({
             throw new Error("Server error:" + errorData.message);
           }
           const data = await response.json();
-          console.log(data);
+          // console.log(data);
           return { data };
         } catch (error) {
           // console.log(error);
@@ -74,7 +74,7 @@ const allUsersSlice = createAppSlice({
         },
         fulfilled: (state, action) => {
           state.allUsers = action.payload.data;
-          console.log(action.payload.data);
+          // console.log(action.payload.data);
           //   localStorage.setItem(
           //     "user",
           //     JSON.stringify(action.payload.data.userData)

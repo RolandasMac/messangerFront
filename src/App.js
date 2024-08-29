@@ -15,10 +15,18 @@ import ProfilePage from "./pages/ProfilePage.jsx";
 import OneUserPage from "./pages/OneUserPage.jsx";
 import ConversationsPage from "./pages/ConversationsPage.jsx";
 import { addMessage } from "./reducers/conversations/oneConvSlice.js";
+import {
+  getConvList,
+  updateConvListHasNewMsg,
+} from "./reducers/conversations/convListSlice";
 
 function App() {
   const oneConv = useSelector((state) => {
     return state.oneConv.oneConv;
+  });
+  const convList = useSelector((state) => {
+    // console.log(state.convList.convList);
+    return state.convList.convList;
   });
 
   const newConverIdRef = useRef(oneConv);
@@ -73,13 +81,11 @@ function App() {
       });
 
       newSocket.on("newmessage", async (lastMessage) => {
-        // console.log(oneConv);
-        // alert(newConverIdRef.current._id);
-        // const id = await oneConv._id;
-        // // console.log(lastMessage);
-        // renewConversations(await lastMessage);
         if (newConverIdRef.current._id === lastMessage._id) {
           dispatch(addMessage(lastMessage.lastMessage));
+        } else {
+          alert("suveikė");
+          dispatch(getConvList());
         }
       });
 
@@ -113,7 +119,10 @@ function App() {
             }
           />
           <Route path="profile" element={<ProfilePage />} />
-          <Route path="oneuser/:userId" element={<OneUserPage />} />
+          <Route
+            path="oneuser/:userId"
+            element={<OneUserPage socket={socket} />}
+          />
           <Route
             path="conversations/:convId?"
             element={<ConversationsPage socket={socket} />}

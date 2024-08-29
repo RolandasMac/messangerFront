@@ -7,7 +7,7 @@ import { useNavigate } from "react-router";
 const ConversationList = ({ onSelectConversation }) => {
   const dispatch = useDispatch();
   const convList = useSelector((state) => {
-    console.log(state.convList.convList);
+    // console.log(state.convList.convList);
     return state.convList.convList;
   });
   const currentConversation = useSelector((state) => {
@@ -37,11 +37,13 @@ const ConversationList = ({ onSelectConversation }) => {
             >
               <span>
                 New msg(
-                {
-                  conv.convParticipants.find((cur) => {
-                    return cur.userId === currentUser.id;
-                  }).hasNewMsg
-                }
+                {conv.convParticipants.map((cur) => {
+                  if (cur.userId === currentUser.id) {
+                    return cur.hasNewMsg;
+                  } else {
+                    return "";
+                  }
+                })}
                 )
               </span>
               <ConversationItem

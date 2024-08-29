@@ -13,23 +13,51 @@ const convListSlice = createAppSlice({
   },
   reducers: (create) => ({
     // A normal "case reducer", same as always
-    // deleteUser: create.reducer((state, action) => {
-    //   state.user = {
-    //     loading: false,
-    //     user: {},
-    //     error: null,
-    //     logged: false,
-    //   };
+    // updateConvListHasNewMsg: create.reducer((state, action) => {
+    //   console.log(action.payload);
+
+    //   console.log(state.convList);
+    //   let newState = state.convList;
+    //   const index = newState.findIndex((cur) => {
+    //     return cur._id === action.payload._id;
+    //   });
+    //   const participantIndex = newState[index].convParticipants.findIndex(
+    //     (cur) => {
+    //       return cur.userId === action.payload.lastMessage.owner._id;
+    //     }
+    //   );
+    //   console.log(participantIndex);
+    // newState[index].convParticipants[participantIndex].hasNewMsg += 1;
+
+    //   return state;
     // }),
+
     // A case reducer with a "prepare callback" to customize the action
-    // addUser: create.preparedReducer(
-    //   (user) => {
-    //     const id = new Date();
-    //     return { payload: { id, user } };
+    // updateConvListHasNewMsg: create.preparedReducer(
+    //   (newMsg) => {
+    //     return { payload: { newMsg } };
     //   },
     //   // action type is inferred from prepare callback
     //   (state, action) => {
-    //     state.user.push(action.payload.user);
+    //     const conversationId = action.payload.newMsg._id;
+    //     const messageOwnerId = action.payload.newMsg.lastMessage.ownerId;
+
+    //     console.log(conversationId, messageOwnerId);
+
+    //     state.convList
+    //       .map((cur) => {
+    //         if (cur._id === conversationId) {
+    //           console.log();
+    //           cur.convParticipants.map((cur) => {
+    //             if (cur.userId === messageOwnerId) {
+    //               return (cur.hasNewMsg += 1);
+    //             }
+    //           });
+    //         }
+    //       })[2]
+    //       .convParticipants.map((cur) => {
+    //         return (cur.hasNewMsg = 777);
+    //       });
     //   }
     // ),
     // An async thunk
@@ -133,5 +161,5 @@ const convListSlice = createAppSlice({
 
 // `addTodo` and `deleteTodo` are normal action creators.
 // `fetchTodo` is the async thunk
-export const { getConvList } = convListSlice.actions;
+export const { getConvList, updateConvListHasNewMsg } = convListSlice.actions;
 export default convListSlice.reducer;

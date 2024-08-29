@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneConv } from "../reducers/conversations/oneConvSlice";
 import { getOneUser } from "../reducers/oneUserSlice";
-function OneUserPage() {
+function OneUserPage({ socket }) {
   //   const location = useLocation();
   //   const convEntry = location.state || {};
   const { userId } = useParams();
@@ -13,6 +13,9 @@ function OneUserPage() {
   });
   const oneUser = useSelector((state) => {
     return state.oneUser;
+  });
+  const oneConv = useSelector((state) => {
+    return state.oneConv.oneConv;
   });
   const inputRef = useRef(null);
 
@@ -33,6 +36,16 @@ function OneUserPage() {
 
     const result = await dispatch(getOneConv(sendData));
     // console.log(result.payload.data._id);
+
+    // Send message tru the sockets
+    if (newMessage.message !== "") {
+      socket.emit("chatMessage", {
+        userId: user.user.id,
+        message: newMessage.message,
+        toConv: oneConv._id,
+      });
+      inputRef.current.value = "";
+    }
 
     if (result.meta.requestStatus === "fulfilled") {
       navigate(`/conversations/${result.payload.data._id}`);

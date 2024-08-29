@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { useSendCodeMutation } from "../../reducers/auth";
 import { useNavigate } from "react-router-dom";
 
 function SendEmailPage() {
-  const [sendEmail, { dat, isError }] = useSendCodeMutation();
+  const [sendEmail, { data, error, isLoading, isSuccess, isError, reset }] =
+    useSendCodeMutation();
   const navigate = useNavigate();
+  const [errorMsg, setErrorMsg] = useState(null);
 
   async function sendData(e) {
     e.preventDefault();
@@ -16,9 +19,13 @@ function SendEmailPage() {
     }
 
     const { message, success } = await sendEmail(data).unwrap();
-    // console.log(message, success);
+    console.log(message, success);
     if (success) {
+      // console.log(data, error, isLoading, isSuccess, isError, reset);
+
       navigate("/createuser");
+    } else {
+      setErrorMsg(message);
     }
 
     // fetch("http://localhost:4001/auth/sendemailcode", {
@@ -49,6 +56,25 @@ function SendEmailPage() {
     <div className="card bg-base-100 border border-neutral-200 w-96 shadow-xl mx-auto">
       <div className="card-body">
         <form className="flex flex-col gap-5">
+          {errorMsg && (
+            <div role="alert" className="alert alert-error">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 shrink-0 stroke-current"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>{errorMsg}! </span>
+            </div>
+          )}
+
           <label className="input input-bordered flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -64,6 +90,9 @@ function SendEmailPage() {
               className="grow border-none"
               placeholder="Email"
               name="email"
+              onChange={() => {
+                setErrorMsg(null);
+              }}
             />
           </label>
           <button

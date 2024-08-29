@@ -82,16 +82,17 @@ const oneConvSlice = createAppSlice({
     ),
     getOneConvById: create.asyncThunk(
       // Async payload function as the first argument
-      async (convId, { rejectWithValue, dispatch }) => {
+      async ({ convId, oldId }, { rejectWithValue, dispatch }) => {
         try {
           const response = await fetch(
             `https://localhost:4001/conversations/getconversationbyid/${convId}`,
             {
-              method: "GET",
+              method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
               credentials: "include",
+              body: JSON.stringify({ oldId: oldId }),
               mode: "cors",
             }
           );

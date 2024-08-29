@@ -15,7 +15,7 @@ const ConversationItem = ({
   };
 
   return (
-    <li onClick={() => handleClick(conversation)}>
+    <li key={conversation._id} onClick={() => handleClick(conversation)}>
       <div className="flex flex-row gap-1">
         {convParticipants.map((participant) =>
           // <span key={participant.userId} style={{ marginRight: "10px" }}>
