@@ -17,6 +17,7 @@ function ConversationsPage({ socket }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(currentConversation);
     setSelectedConversation(convId);
     const oldConvId = !oldId ? convId : oldId;
     const data = { oldId: oldConvId, convId: convId };

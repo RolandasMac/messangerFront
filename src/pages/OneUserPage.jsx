@@ -26,6 +26,8 @@ function OneUserPage({ socket }) {
       { userId: user.user.id },
       { userId: oneUser.oneUser._id },
     ];
+    console.log(participants);
+    console.log(oneUser);
     const newMessage = {
       message: inputRef.current.value,
       ownerId: user.user.id,
@@ -35,17 +37,17 @@ function OneUserPage({ socket }) {
     const sendData = { participants, newMessage };
 
     const result = await dispatch(getOneConv(sendData));
-    // console.log(result.payload.data._id);
+    console.log(result.payload.data._id);
 
     // Send message tru the sockets
-    if (newMessage.message !== "") {
-      socket.emit("chatMessage", {
-        userId: user.user.id,
-        message: newMessage.message,
-        toConv: oneConv._id,
-      });
-      inputRef.current.value = "";
-    }
+    // if (newMessage.message !== "") {
+    //   socket.emit("chatMessage", {
+    //     userId: user.user.id,
+    //     message: newMessage.message,
+    //     toConv: oneConv._id,
+    //   });
+    //   inputRef.current.value = "";
+    // }
 
     if (result.meta.requestStatus === "fulfilled") {
       navigate(`/conversations/${result.payload.data._id}`);

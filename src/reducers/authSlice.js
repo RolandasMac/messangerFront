@@ -138,10 +138,59 @@ const authSlice = createAppSlice({
         },
       }
     ),
+    logoutUser: create.asyncThunk(
+      // Async payload function as the first argument
+      async (__, { rejectWithValue, dispatch }) => {
+        try {
+          const response = await fetch(`https://localhost:4001/auth/logout`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              // "Access-Control-Allow-Credentials": true,
+              "Access-Control-Allow-Headers": "Coookie",
+            },
+            credentials: "include",
+            mode: "cors",
+          });
+          // console.log(response);
+          if (!response.ok) {
+            const errorData = await response.json();
+            // console.log("Error:", errorData.message);
+            throw new Error("Server error:" + errorData.message);
+          }
+          const data = await response.json();
+          // console.log(data);
+          return { data };
+        } catch (error) {
+          // console.log(error);
+          return rejectWithValue(error.message);
+        }
+      },
+      {
+        pending: (state) => {
+          state.loading = true;
+        },
+        rejected: (state, action) => {
+          state.error = action.payload;
+          // console.log(action.error, action.payload);
+        },
+        fulfilled: (state, action) => {
+          state.user = action.payload.data.userData;
+          state.logged = false;
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+        },
+        // settled is called for both rejected and fulfilled actions
+        settled: (state, action) => {
+          state.loading = false;
+        },
+      }
+    ),
   }),
 });
 
 // `addTodo` and `deleteTodo` are normal action creators.
 // `fetchTodo` is the async thunk
-export const { loginUser, deleteUser, autologinUser } = authSlice.actions;
+export const { loginUser, deleteUser, autologinUser, logoutUser } =
+  authSlice.actions;
 export default authSlice.reducer;

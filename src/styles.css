@@ -1,0 +1,22 @@
+.notification-icon {
+  position: relative;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.icon {
+  font-size: 16px; /* Adjust the size of the icon */
+  color: #007bff; /* Change color as needed */
+}
+
+.message-count {
+  position: absolute;
+  top: 0px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 0px 5px;
+  font-size: 12px;
+  font-weight: bold;
+}

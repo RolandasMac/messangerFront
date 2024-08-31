@@ -110,6 +110,54 @@ const convListSlice = createAppSlice({
         },
       }
     ),
+    addNewParticipant: create.asyncThunk(
+      async ({ convId, userId }, { rejectWithValue, dispatch }) => {
+        try {
+          const response = await fetch(
+            `https://localhost:4001/conversations/addnewparticipant/${convId}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+              body: JSON.stringify({ userId: userId }),
+              mode: "cors",
+            }
+          );
+          console.log(response);
+          if (!response.ok) {
+            const errorData = await response.json();
+            // console.log("Error:", errorData.message);
+            throw new Error("Server error:" + errorData.message);
+          }
+          const data = await response.json();
+          console.log(data);
+          return { data };
+        } catch (error) {
+          // console.log(error);
+          return rejectWithValue(error.message);
+        }
+      },
+      {
+        pending: (state) => {
+          state.loading = true;
+          state.loaded = false;
+        },
+        rejected: (state, action) => {
+          state.error = action.payload;
+          // console.log(action.error, action.payload);
+        },
+        fulfilled: (state, action) => {
+          state.convList = action.payload.data;
+          state.loaded = true;
+        },
+        // settled is called for both rejected and fulfilled actions
+        settled: (state, action) => {
+          state.loading = false;
+        },
+      }
+    ),
     // autologinUser: create.asyncThunk(
     //   // Async payload function as the first argument
     //   async (token, { rejectWithValue, dispatch }) => {
@@ -164,5 +212,6 @@ const convListSlice = createAppSlice({
 
 // `addTodo` and `deleteTodo` are normal action creators.
 // `fetchTodo` is the async thunk
-export const { getConvList, updateConvListHasNewMsg } = convListSlice.actions;
+export const { getConvList, updateConvListHasNewMsg, addNewParticipant } =
+  convListSlice.actions;
 export default convListSlice.reducer;

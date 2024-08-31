@@ -9,6 +9,10 @@ const oneConvSlice = createAppSlice({
   initialState: {
     loading: false,
     oneConv: {
+      convParticipants1: [],
+      createdAt: 0,
+      messages: [],
+      updatedAt: 0,
       _id: null,
     },
     error: null,
@@ -49,7 +53,7 @@ const oneConvSlice = createAppSlice({
               mode: "cors",
             }
           );
-          console.log(response);
+          // console.log(response);
           if (!response.ok) {
             const errorData = await response.json();
             // console.log("Error:", errorData.message);

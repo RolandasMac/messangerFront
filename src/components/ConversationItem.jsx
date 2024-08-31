@@ -19,7 +19,7 @@ const ConversationItem = ({
       key={conversation._id}
       //  onClick={() => handleClick(conversation)}
     >
-      <div className="flex flex-row gap-1">
+      <div className="flex flex-row gap-1 flex-wrap">
         {convParticipants.map((participant) =>
           // <span key={participant.userId} style={{ marginRight: "10px" }}>
           //   <img

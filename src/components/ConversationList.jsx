@@ -3,11 +3,12 @@ import ConversationItem from "./ConversationItem";
 import { useDispatch, useSelector } from "react-redux";
 import { getConvList } from "../reducers/conversations/convListSlice";
 import { useNavigate } from "react-router";
+import "../styles.css";
 
 const ConversationList = () => {
   const dispatch = useDispatch();
   const convList = useSelector((state) => {
-    console.log(state.convList.convList);
+    // console.log(state.convList.convList);
     return state.convList;
   });
 
@@ -37,44 +38,55 @@ const ConversationList = () => {
     dispatch(getConvList());
   }, []);
   return (
-    <div className="flex flex-col gap-5">
+    <div className="">
       {convList.loading && (
         <div className="flex flex-row justify-center">
           <span className="loading loading-spinner loading-sm"></span>
         </div>
       )}
-      {convList.loaded &&
-        sortedConversations.map((conv) => {
-          return (
-            <div
-              key={conv._id}
-              className={
-                currentConversation._id == conv._id
-                  ? "bg-slate-300 rounded p-2"
-                  : "rounded p-2"
-              }
-              onClick={() => navigate(`/conversations/${conv._id}`)}
-            >
-              <span>
-                <strong>
+      <div className="flex flex-col ">
+        {convList.loaded &&
+          sortedConversations.map((conv) => {
+            return (
+              <div
+                key={conv._id}
+                className={
+                  currentConversation._id == conv._id
+                    ? "bg-slate-300 rounded p-2"
+                    : "rounded p-2 flex flex-row justify-between"
+                }
+                onClick={() => navigate(`/conversations/${conv._id}`)}
+              >
+                <ConversationItem
+                  key={conv._id}
+                  conversation={conv}
+                  // onSelectConversation={onSelectConversation}
+                  curUserId={currentUser.id}
+                />
+
+                <span>
                   {conv.convParticipants.map((cur) => {
                     if (cur.userId === currentUser.id && cur.hasNewMsg > 0) {
-                      return `(${cur.hasNewMsg})`;
+                      return (
+                        <div className="notification-icon">
+                          <span className="icon">📩</span>
+                          {cur.userId === currentUser.id &&
+                            cur.hasNewMsg > 0 && (
+                              <span className="message-count">
+                                {cur.hasNewMsg}
+                              </span>
+                            )}
+                        </div>
+                      );
                     } else {
                       return "";
                     }
                   })}
-                </strong>
-              </span>
-              <ConversationItem
-                key={conv._id}
-                conversation={conv}
-                // onSelectConversation={onSelectConversation}
-                curUserId={currentUser.id}
-              />
-            </div>
-          );
-        })}
+                </span>
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 };

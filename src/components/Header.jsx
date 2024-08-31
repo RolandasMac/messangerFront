@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { deleteUser } from "../reducers/authSlice.js";
+import { logoutUser } from "../reducers/authSlice.js";
 import defaultProfilePic from "../images/profile.png";
 import { useNavigate } from "react-router";
 
@@ -11,10 +11,16 @@ function Header({ socket }) {
   const navigate = useNavigate();
 
   function logout() {
+    fetch("/logout", {
+      method: "POST",
+      credentials: "include", // Make sure to include credentials for cookie-based sessions
+    }).then((response) => {
+      // Handle response
+    });
     socket.emit("userdisconected", user);
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    dispatch(deleteUser());
+    // localStorage.removeItem("token");
+    // localStorage.removeItem("user");
+    dispatch(logoutUser());
   }
   return (
     <>
