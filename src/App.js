@@ -14,7 +14,10 @@ import { autologinUser } from "./reducers/authSlice.js";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import OneUserPage from "./pages/OneUserPage.jsx";
 import ConversationsPage from "./pages/ConversationsPage.jsx";
-import { addMessage } from "./reducers/conversations/oneConvSlice.js";
+import {
+  addMessage,
+  deleteOneConvLocaly,
+} from "./reducers/conversations/oneConvSlice.js";
 import {
   getConvList,
   updateConvListHasNewMsg,
@@ -89,6 +92,17 @@ function App() {
           dispatch(getConvList());
         }
       });
+      newSocket.on("renewData", async (convId) => {
+        dispatch(getConvList());
+        // Dar reikia visą sąrašą žinučių atnaujinti
+        // alert("Suveikė");
+        // alert(convId + " " + newConverIdRef.current._id);
+        console.log(oneConv);
+        if (newConverIdRef.current._id === convId) {
+          // alert("sutapo");
+          dispatch(deleteOneConvLocaly());
+        }
+      });
 
       return () => {
         newSocket.off("chatMessage");
@@ -96,6 +110,7 @@ function App() {
         newSocket.off("disconecteduser");
         newSocket.off("newmessage");
         newSocket.off("renewUserData");
+        newSocket.off("renewData");
       };
     }
   }, [user.user]);

@@ -18,6 +18,7 @@ function OneUserPage({ socket }) {
     return state.oneConv.oneConv;
   });
   const inputRef = useRef(null);
+  const checkBoxRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -26,18 +27,20 @@ function OneUserPage({ socket }) {
       { userId: user.user.id },
       { userId: oneUser.oneUser._id },
     ];
-    console.log(participants);
-    console.log(oneUser);
+    // console.log(participants);
+    // console.log(oneUser);
     const newMessage = {
       message: inputRef.current.value,
       ownerId: user.user.id,
       createdAt: new Date().toISOString(),
     };
+    const newConvCreate = { createNew: checkBoxRef.current.checked };
 
-    const sendData = { participants, newMessage };
+    const sendData = { participants, newMessage, newConvCreate };
 
+    // console.log(sendData);
     const result = await dispatch(getOneConv(sendData));
-    console.log(result.payload.data._id);
+    // console.log(result.payload.data._id);
 
     // Send message tru the sockets
     // if (newMessage.message !== "") {
@@ -77,16 +80,20 @@ function OneUserPage({ socket }) {
           </div>
         </div>
       )}
-      <input ref={inputRef} type="text" placeholder="Rašykite žinutę" />
-      <button
-        type="button"
-        name=""
-        id=""
-        className="btn btn-active"
-        onClick={createConvAndSendMessage}
-      >
-        Siųsti žinutę
-      </button>
+      <div className="flex flex-row gap-2 items-center">
+        <input ref={inputRef} type="text" placeholder="Rašykite žinutę" />
+        <button
+          type="button"
+          name=""
+          id=""
+          className="btn btn-active"
+          onClick={createConvAndSendMessage}
+        >
+          Siųsti žinutę
+        </button>
+        <input ref={checkBoxRef} type="checkbox" />
+        <span>Sukurti naują pokalbį</span>
+      </div>
     </>
   );
 }
