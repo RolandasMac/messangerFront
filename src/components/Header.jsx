@@ -25,7 +25,7 @@ function Header({ socket }) {
   return (
     <div className="mb-5">
       <div className="navbar bg-gray-200 rounded">
-        <div className="flex-1">Rolando susirašinėjimų erdvė</div>
+        <h1 className="flex-1">Rolando susirašinėjimų erdvė</h1>
         <div className="flex-none gap-2">
           {/* <div className="form-control">
             <input

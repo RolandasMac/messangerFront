@@ -26,16 +26,16 @@ const MessageList = ({ messages, convId, socket }) => {
     }
   }
   function handleClick(id) {
-    alert(id + " " + oneConv._id);
+    // alert(id + " " + oneConv._id);
     dispatch(addNewParticipant({ userId: id, convId: oneConv._id }));
   }
 
   return (
     <div className="flex flex-col h-full max-w-lg mx-auto bg-white shadow-lg rounded-lg">
-      <div className="p-4 border-b border-gray-200 flex flex-row justify-between">
-        <h2 className="text-xl font-semibold">Susirašinėjumų platforma</h2>
+      <div className="p-4 border-b border-gray-200 flex flex-row justify-end">
+        {/* <h2 className="text-xl font-semibold">Susirašinėjumų platforma</h2> */}
         <button
-          className="btn"
+          className="btn "
           onClick={() => document.getElementById("my_modal_2").showModal()}
         >
           Pridėti pokalbio dalyvį

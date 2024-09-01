@@ -33,7 +33,7 @@ function UsersListComponent({ colb }) {
                       <img src={cur.photo} />
                     </div>
                   </div>
-                  <span>{cur.name}</span>
+                  <h4>{cur.name}</h4>
                 </div>
               );
             }

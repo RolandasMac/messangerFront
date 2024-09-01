@@ -38,9 +38,9 @@ function Layout(props) {
         Labas, čia Header
       </Header>
       <div className="flex">
-        <div className="bg-gray-200 rounded flex-none w-36 pl-2 mr-5">
-          <h4>Menu</h4>
-          <ul>
+        <div className="bg-gray-200 rounded flex-none w-40 pl-2 mr-5">
+          <h4 className="mymenu mb-5">Menu</h4>
+          <ul className="mymenu1 flex flex-col gap-5">
             {/* <li>{<Link to="/home">Home</Link>}</li> */}
             <li>{<Link to="/todo">Priminimai</Link>}</li>
             {/* <li>{<Link to="/sendemail">Send email</Link>}</li>

@@ -84,7 +84,7 @@ const convListSlice = createAppSlice({
             throw new Error("Server error:" + errorData.message);
           }
           const data = await response.json();
-          console.log(data);
+          // console.log(data);
           return { data };
         } catch (error) {
           // console.log(error);
@@ -132,7 +132,7 @@ const convListSlice = createAppSlice({
             throw new Error("Server error:" + errorData.message);
           }
           const data = await response.json();
-          console.log(data);
+          // console.log(data);
           return { data };
         } catch (error) {
           // console.log(error);
@@ -158,55 +158,6 @@ const convListSlice = createAppSlice({
         },
       }
     ),
-    // autologinUser: create.asyncThunk(
-    //   // Async payload function as the first argument
-    //   async (token, { rejectWithValue, dispatch }) => {
-    //     try {
-    //       const response = await fetch(`http://localhost:4001/auth/autologin`, {
-    //         method: "POST",
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify(token),
-    //         // mode: "no-cors",
-    //       });
-    //       // console.log(response);
-    //       if (!response.ok) {
-    //         const errorData = await response.json();
-    //         // console.log("Error:", errorData.message);
-    //         throw new Error("Server error:" + errorData.message);
-    //       }
-    //       const data = await response.json();
-    //       console.log(data);
-    //       return { data };
-    //     } catch (error) {
-    //       // console.log(error);
-    //       return rejectWithValue(error.message);
-    //     }
-    //   },
-    //   {
-    //     pending: (state) => {
-    //       state.loading = true;
-    //     },
-    //     rejected: (state, action) => {
-    //       state.error = action.payload;
-    //       // console.log(action.error, action.payload);
-    //     },
-    //     fulfilled: (state, action) => {
-    //       state.user = action.payload.data.userData;
-    //       state.logged = true;
-    //       localStorage.setItem("token", action.payload.data.token);
-    //       localStorage.setItem(
-    //         "user",
-    //         JSON.stringify(action.payload.data.userData)
-    //       );
-    //     },
-    //     // settled is called for both rejected and fulfilled actions
-    //     settled: (state, action) => {
-    //       state.loading = false;
-    //     },
-    //   }
-    // ),
   }),
 });
 

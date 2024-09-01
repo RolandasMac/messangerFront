@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useCreateUserMutation } from "../../reducers/auth.js";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { loginUser } from "../../reducers/authSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -11,6 +11,8 @@ function LoginPage() {
     return state.user;
   });
 
+  const location = useLocation();
+  const fromPage = location.state?.from?.pathname || "/todo";
   async function sendData(e) {
     e.preventDefault();
     const form = e.target.parentElement;
@@ -19,10 +21,10 @@ function LoginPage() {
     for (let [key, val] of formData) {
       sendData[key] = val;
     }
+
     const result = await dispatch(loginUser(sendData));
     if (result.meta.requestStatus === "fulfilled") {
-      // console.log();
-      navigate("/todo");
+      navigate(`${fromPage}`);
     }
   }
 

@@ -23,6 +23,7 @@ import {
   updateConvListHasNewMsg,
 } from "./reducers/conversations/convListSlice";
 import ChatWindow from "./pages/ChatWindowPage.jsx";
+import WithLoginComponent from "./components/WithLoginComponent.jsx";
 
 function App() {
   const oneConv = useSelector((state) => {
@@ -97,7 +98,7 @@ function App() {
         // Dar reikia visą sąrašą žinučių atnaujinti
         // alert("Suveikė");
         // alert(convId + " " + newConverIdRef.current._id);
-        console.log(oneConv);
+        // console.log(oneConv);
         if (newConverIdRef.current._id === convId) {
           // alert("sutapo");
           dispatch(deleteOneConvLocaly());
@@ -124,6 +125,28 @@ function App() {
           <Route path="sendemail" element={<SendEmailPage />} />
           <Route path="createuser" element={<CreateUserPage />} />
           <Route path="login" element={<LoginPage />} />
+
+          <Route
+            path="chat"
+            element={
+              <WithLoginComponent>
+                <ChatPage
+                  socket={socket}
+                  conectedUsers={conectedUsers}
+                  messages={messages}
+                />
+              </WithLoginComponent>
+            }
+          />
+          <Route
+            path="conversations/:convId?"
+            element={
+              <WithLoginComponent>
+                <ConversationsPage socket={socket} />
+              </WithLoginComponent>
+            }
+          />
+          {/* 
           <Route
             path="chat"
             element={
@@ -133,16 +156,16 @@ function App() {
                 messages={messages}
               />
             }
-          />
+          /> */}
           <Route path="profile" element={<ProfilePage />} />
           <Route
             path="oneuser/:userId"
             element={<OneUserPage socket={socket} />}
           />
-          <Route
+          {/* <Route
             path="conversations/:convId?"
             element={<ConversationsPage socket={socket} />}
-          />
+          /> */}
           <Route path="chatwindow" element={<ChatWindow socket={socket} />} />
         </Route>
       </Routes>

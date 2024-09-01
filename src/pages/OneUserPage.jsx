@@ -59,11 +59,11 @@ function OneUserPage({ socket }) {
                 oneUser.oneUser.isOnline ? "avatar online" : "avatar  offline"
               }
             >
-              <div className="w-12 rounded-full">
+              <div className="w-20 rounded-full">
                 <img src={oneUser.oneUser.photo} />
               </div>
             </div>
-            <span>{oneUser.oneUser.name}</span>
+            <h2>{oneUser.oneUser.name}</h2>
           </div>
         </div>
       )}
