@@ -5,11 +5,77 @@ import { useNavigate } from "react-router-dom";
 function CreateUserPage() {
   const [createUser, { data, isError }] = useCreateUserMutation();
   const navigate = useNavigate();
+  const [validateError, setValidateError] = useState("Kažkokia klaida");
+  const [error, setError] = useState(false);
+  const fileRef = useRef();
+  function validFields(formData) {
+    const data = {};
+    for (const [key, val] of formData) {
+      data[key] = val;
+    }
+    if (
+      data.password.length === 0 ||
+      data.password1.length === 0 ||
+      data.name.length === 0 ||
+      String(data.code).length === 0 ||
+      data.file === null
+    ) {
+      setValidateError("Laukeliai negali būti tušti");
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+        setValidateError("");
+      }, 5000);
+      return false;
+    }
+
+    if (data.password !== data.password1) {
+      setValidateError("Slaptažodis nesutampa");
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+        setValidateError("");
+      }, 5000);
+      return false;
+    }
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+    if (!passwordRegex.test(data.password)) {
+      setValidateError("Slaptažodis neatitinka reikalavimų");
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+        setValidateError("");
+      }, 5000);
+      return false;
+    }
+    const file = fileRef.current.files[0];
+    if (file) {
+      // Check if the file is an image
+      const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+      if (validImageTypes.includes(file.type)) {
+      } else {
+        setValidateError(
+          "Avataro failas yra netinkamo formato arba nepasirinktas"
+        );
+        setError(true);
+        setTimeout(() => {
+          setError(false);
+          setValidateError("");
+        }, 5000);
+        return false;
+      }
+    }
+    return true;
+  }
+
   async function sendData(e) {
     e.preventDefault();
     const form = e.target.parentElement;
     const formData = new FormData(form);
-
+    if (!validFields(formData)) {
+      return;
+    }
     const { message, success, createdUser } = await createUser(
       formData
     ).unwrap();
@@ -97,6 +163,7 @@ function CreateUserPage() {
             />
           </label>
           <input
+            ref={fileRef}
             name="file"
             type="file"
             className="file-input w-full max-w-xs"
@@ -107,10 +174,27 @@ function CreateUserPage() {
             }}
             className="btn btn-active"
           >
-            {" "}
             Siųsti
           </button>
         </form>
+        {error && (
+          <div role="alert" className="alert alert-error">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 shrink-0 stroke-current"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span>{validateError}! </span>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -12,44 +12,25 @@ function SendEmailPage() {
     e.preventDefault();
     const form = e.target.parentElement;
     const formData = new FormData(form);
-    console.log(formData);
+    // console.log(formData);
     const data = {};
     for (const [key, val] of formData) {
       data[key] = val;
     }
-
+    const emailRegex = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(data.email)) {
+      setErrorMsg("Elektroninio pašto adresas yra neteisingas");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 5000);
+    }
     const { message, success } = await sendEmail(data).unwrap();
     console.log(message, success);
     if (success) {
-      // console.log(data, error, isLoading, isSuccess, isError, reset);
-
       navigate("/createuser");
     } else {
       setErrorMsg(message);
     }
-
-    // fetch("http://localhost:4001/auth/sendemailcode", {
-    //   // return fetch("https://backend.macrol.lt/ataskaita", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json", // type
-    //     // 'Authorization': jwt
-    //   },
-    //   mode: "cors",
-    //   // credentials: 'same-origin',
-    //   // credentials: "include",
-    //   body: JSON.stringify(data),
-    // })
-    //   .then((response) => {
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-    //     console.log(data);
-    //   })
-    //   // .then(data => document.getElementById("outputDiv").innerHTML = data.message)
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
   }
 
   return (
