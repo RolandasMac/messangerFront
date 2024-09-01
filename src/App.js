@@ -24,6 +24,7 @@ import {
 } from "./reducers/conversations/convListSlice";
 import ChatWindow from "./pages/ChatWindowPage.jsx";
 import WithLoginComponent from "./components/WithLoginComponent.jsx";
+import ChanhePasswordPage from "./pages/loginPages/ChangePasswordPage.jsx";
 
 function App() {
   const oneConv = useSelector((state) => {
@@ -158,6 +159,8 @@ function App() {
             }
           /> */}
           <Route path="profile" element={<ProfilePage />} />
+          <Route path="changepassword" element={<ChanhePasswordPage />} />
+
           <Route
             path="oneuser/:userId"
             element={<OneUserPage socket={socket} />}

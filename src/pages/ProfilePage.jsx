@@ -8,13 +8,14 @@ import {
   useGetUserInfoQuery,
 } from "../reducers/auth.js";
 import { getOneUser } from "../reducers/authSlice.js";
+import { useNavigate } from "react-router";
 
 const ProfilePage = () => {
   const user = useSelector((state) => {
     return state.user.user;
   });
   const dispatch = useDispatch();
-  // const { auths } = useGetUserInfoQuery();
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   alert(user.id);
@@ -140,13 +141,22 @@ const ProfilePage = () => {
                     className="hidden"
                     onChange={validateFile}
                   />
+                  <button
+                    onClick={(event) => {
+                      navigate("/changepassword", { replace: true });
+                    }}
+                    className="btn btn-active mt-60"
+                  >
+                    Pakeisti slaptažodį
+                  </button>
                 </div>
 
-                <h1>{user.name}</h1>
-                <p className="">{user.bio}</p>
+                {/* <p className="">{user.bio}</p> */}
               </div>
+
               <div className="flex flex-col gap-3">
-                <strong>Vartotojo informacija</strong>
+                <h1>{user.name}</h1>
+                {/* <strong>Vartotojo informacija</strong> */}
                 <p>
                   <strong>El. paštas: </strong>
                   <a href={`mailto:${user.email}`}>{user.email}</a>
@@ -167,7 +177,7 @@ const ProfilePage = () => {
             </div>
           </div>
 
-          <input
+          {/* <input
             type="radio"
             name="my_tabs_2"
             role="tab"
@@ -193,7 +203,7 @@ const ProfilePage = () => {
             className="tab-content bg-base-100 border-base-300 rounded-box p-6"
           >
             Tab content 3
-          </div>
+          </div> */}
         </div>
       )}
     </>
