@@ -44,7 +44,7 @@ const ConversationList = () => {
       )}
       <div className="flex flex-col ">
         {convList.loaded &&
-          sortedConversations.map((conv) => {
+          sortedConversations.map((conv, index) => {
             return (
               <div
                 key={conv._id}
@@ -53,7 +53,9 @@ const ConversationList = () => {
                     ? "bg-gray-200 rounded p-2 "
                     : "rounded p-2 flex flex-row justify-between"
                 }
-                onClick={() => navigate(`/conversations/${conv._id}`)}
+                onClick={() => {
+                  navigate(`/conversations/${conv._id}`);
+                }}
               >
                 <ConversationItem
                   curConv={currentConversation._id}

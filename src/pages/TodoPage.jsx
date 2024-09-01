@@ -132,7 +132,7 @@ function TodoPage(props) {
                   <label className="label cursor-pointer">
                     <input
                       type="checkbox"
-                      defaultChecked
+                      // defaultChecked
                       className="checkbox"
                       onChange={(event) => setIvykdyta(event, cur._id)}
                       checked={cur.completed}

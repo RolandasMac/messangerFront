@@ -108,7 +108,7 @@ const authSlice = createAppSlice({
             throw new Error("Server error:" + errorData.message);
           }
           const data = await response.json();
-          console.log(data);
+          // console.log(data);
           return { data };
         } catch (error) {
           // console.log(error);
@@ -333,6 +333,56 @@ const authSlice = createAppSlice({
         },
       }
     ),
+    changeUserEmail: create.asyncThunk(
+      // Async payload function as the first argument
+      async (sendData, { rejectWithValue, dispatch }) => {
+        try {
+          const response = await fetch(
+            `https://localhost:4001/auth/changeuseremail`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                // "Access-Control-Allow-Credentials": true,
+                "Access-Control-Allow-Headers": "Coookie",
+              },
+              credentials: "include",
+              body: JSON.stringify(sendData),
+              mode: "cors",
+            }
+          );
+          // console.log(response);
+          if (!response.ok) {
+            const errorData = await response.json();
+            // console.log("Error:", errorData.message);
+            throw new Error("Server error:" + errorData.message);
+          }
+          const data = await response.json();
+          // console.log(data);
+          return { data };
+        } catch (error) {
+          // console.log(error);
+          return rejectWithValue(error.message);
+        }
+      },
+      {
+        pending: (state) => {
+          state.loading = true;
+        },
+        rejected: (state, action) => {
+          state.error = action.payload;
+          // console.log(action.error, action.payload);
+        },
+        fulfilled: (state, action) => {
+          state.user = action.payload.data.userData;
+          state.logged = true;
+        },
+        // settled is called for both rejected and fulfilled actions
+        settled: (state, action) => {
+          state.loading = false;
+        },
+      }
+    ),
   }),
 });
 
@@ -346,5 +396,6 @@ export const {
   changeAvatar,
   getOneUser,
   changeUserPassword,
+  changeUserEmail,
 } = authSlice.actions;
 export default authSlice.reducer;

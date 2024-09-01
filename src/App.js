@@ -25,6 +25,8 @@ import {
 import ChatWindow from "./pages/ChatWindowPage.jsx";
 import WithLoginComponent from "./components/WithLoginComponent.jsx";
 import ChanhePasswordPage from "./pages/loginPages/ChangePasswordPage.jsx";
+import SendEmailForChangePage from "./pages/loginPages/SendEmailForChange.jsx";
+import ChanheEmailPage from "./pages/loginPages/ChangeEmailPage.jsx";
 
 function App() {
   const oneConv = useSelector((state) => {
@@ -170,6 +172,11 @@ function App() {
             element={<ConversationsPage socket={socket} />}
           /> */}
           <Route path="chatwindow" element={<ChatWindow socket={socket} />} />
+          <Route
+            path="sendemailforchange"
+            element={<SendEmailForChangePage />}
+          />
+          <Route path="changeemail" element={<ChanheEmailPage />} />
         </Route>
       </Routes>
     </>

@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import UsersListComponent from "../components/UsersLisComponent";
 import { addNewParticipant } from "../reducers/conversations/convListSlice";
+import LikeButton from "./LikeButton";
 const MessageList = ({ messages, convId, socket }) => {
   const user = useSelector((state) => {
     return state.user;
@@ -98,11 +99,20 @@ const MessageList = ({ messages, convId, socket }) => {
                 </div>
               </div>
               <div className="chat-header">
-                {message.owner.name ? message.owner.name : ""}
+                {message.owner.name ? message.owner.name + "  " : ""}
                 <time className="text-xs opacity-50">
                   {new Date(message.createdAt).toLocaleString()}
                 </time>
               </div>
+              {/* <button onClick={() => alert(message._id + " " + user.user.id)}>
+                Like
+              </button> */}
+              <LikeButton
+                conversationId={oneConv._id}
+                messageId={message._id}
+                userId={message.ownerId}
+                msglikes={message.likes}
+              />
               <div className="chat-bubble">
                 {message.message ? message.message : ""}
               </div>

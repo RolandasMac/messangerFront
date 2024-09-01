@@ -68,7 +68,7 @@ const ProfilePage = () => {
     if (success) {
       // alert(user.id);
       // // navigate("/login");
-      console.log(user);
+      // console.log(user);
       // console.log(user);
       await dispatch(getOneUser(user.id));
     }
@@ -141,14 +141,24 @@ const ProfilePage = () => {
                     className="hidden"
                     onChange={validateFile}
                   />
-                  <button
-                    onClick={(event) => {
-                      navigate("/changepassword", { replace: true });
-                    }}
-                    className="btn btn-active mt-60"
-                  >
-                    Pakeisti slaptažodį
-                  </button>
+                  <div className="flex flex-row gap-3">
+                    <button
+                      onClick={(event) => {
+                        navigate("/changepassword", { replace: true });
+                      }}
+                      className="btn btn-active mt-60"
+                    >
+                      Pakeisti slaptažodį
+                    </button>
+                    <button
+                      onClick={(event) => {
+                        navigate("/sendemailforchange", { replace: true });
+                      }}
+                      className="btn btn-active mt-60"
+                    >
+                      Pakeisti el.paštą
+                    </button>
+                  </div>
                 </div>
 
                 {/* <p className="">{user.bio}</p> */}

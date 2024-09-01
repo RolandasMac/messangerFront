@@ -17,28 +17,20 @@ function ConversationsPage({ socket }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(currentConversation);
+    // console.log(currentConversation);
     setSelectedConversation(convId);
     const oldConvId = !oldId ? convId : oldId;
     const data = { oldId: oldConvId, convId: convId };
+
     dispatch(getOneConvById(data)).then(() => {
       dispatch(getConvList());
     });
+
     setOldId(convId);
   }, [convId]);
 
-  // const handleSelectConversation = (conversation) => {
-  //   setSelectedConversation(conversation);
-  // };
-
   return (
     <>
-      {/* <button
-        onClick={() => alert(selectedConversation)}
-        className="btn btn-active"
-      >
-        One conversation
-      </button> */}
       <div className="flex flex-row">
         <div className="w-36">
           <h2 className="text-center">Dalyviai</h2>

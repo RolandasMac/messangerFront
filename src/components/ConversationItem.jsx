@@ -10,40 +10,21 @@ const ConversationItem = ({ conversation, curUserId, curConv }) => {
   const { convParticipants } = conversation;
   const dispatch = useDispatch();
 
-  // const handleClick = ({ convId }) => {
-  //   onSelectConversation(convId);
-  // };
   function deleteConvWarn() {
     document.getElementById("my_modal_5").showModal();
-    // alert(id);
   }
   function deleteConv(id) {
-    // alert("Veikia ištrynimas " + id);
     dispatch(deleteOneConvById({ convId: id }));
   }
 
   return (
-    <div
-      key={conversation._id}
-      //  onClick={() => handleClick(conversation)}
-    >
+    <div key={conversation._id}>
       <div className="flex flex-row justify-between">
         <div className="flex flex-row gap-1 flex-wrap">
           {convParticipants.map((participant) =>
-            // <span key={participant.userId} style={{ marginRight: "10px" }}>
-            //   <img
-            //     src={participant.avatar}
-            //     alt={participant.userName}
-            //     className="border rounded"
-            //     // style={{ width: "20px", borderRadius: "100%" }}
-            //   />
-            //   {participant.userName}
-            // </span>
-
             curUserId !== participant.userId ? (
               <div
                 className="flex flex-row items-center gap-2 bg-gray-200"
-                // onClick={() => navigate(`/oneuser/${cur._id}`)}
                 key={participant.userId}
               >
                 <div className="avatar bg-gray-200">
@@ -51,7 +32,6 @@ const ConversationItem = ({ conversation, curUserId, curConv }) => {
                     <img src={participant.userInfo.photo} />
                   </div>
                 </div>
-                {/* <span>{participant.userName}</span> */}
               </div>
             ) : (
               <div></div>
@@ -62,16 +42,9 @@ const ConversationItem = ({ conversation, curUserId, curConv }) => {
           <div
             className="indicator-item badge badge-warning"
             onClick={() => deleteConvWarn()}
-            // onClick={() => document.getElementById("my_modal_5").showModal()}
           >
             <Delete style={{ fontSize: 18 }} />
 
-            {/* <button
-              className="btn"
-              onClick={() => document.getElementById("my_modal_5").showModal()}
-            >
-              open modal
-            </button> */}
             <dialog
               id="my_modal_5"
               className="modal modal-bottom sm:modal-middle"
