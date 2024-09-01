@@ -6,12 +6,7 @@ import {
 } from "../reducers/conversations/oneConvSlice";
 import { Delete } from "@mui/icons-material";
 
-const ConversationItem = ({
-  conversation,
-  // onSelectConversation,
-  curUserId,
-  curConv,
-}) => {
+const ConversationItem = ({ conversation, curUserId, curConv }) => {
   const { convParticipants } = conversation;
   const dispatch = useDispatch();
 
@@ -47,11 +42,11 @@ const ConversationItem = ({
 
             curUserId !== participant.userId ? (
               <div
-                className="flex flex-row items-center gap-2 bg-slate-100"
+                className="flex flex-row items-center gap-2 bg-gray-200"
                 // onClick={() => navigate(`/oneuser/${cur._id}`)}
                 key={participant.userId}
               >
-                <div className="avatar">
+                <div className="avatar bg-gray-200">
                   <div className="w-6 rounded-full">
                     <img src={participant.userInfo.photo} />
                   </div>

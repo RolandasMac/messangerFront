@@ -23,19 +23,17 @@ function Header({ socket }) {
     dispatch(logoutUser());
   }
   return (
-    <>
-      <div className="navbar bg-base-100">
-        <div className="flex-1">
-          <a className="btn btn-ghost text-xl">daisyUI</a>
-        </div>
+    <div className="mb-5">
+      <div className="navbar bg-gray-200 rounded">
+        <div className="flex-1">Rolando susirašinėjimų erdvė</div>
         <div className="flex-none gap-2">
-          <div className="form-control">
+          {/* <div className="form-control">
             <input
               type="text"
               placeholder="Search"
               className="input input-bordered w-24 md:w-auto"
             />
-          </div>
+          </div> */}
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -54,25 +52,43 @@ function Header({ socket }) {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
+                {user.isOnline && (
+                  <a
+                    className="justify-between"
+                    onClick={() => navigate("/profile")}
+                  >
+                    Profilis
+                  </a>
+                )}
+                {/* <span className="badge">New</span> */}
+              </li>
+              <li>
                 <a
-                  className="justify-between"
-                  onClick={() => navigate("/profile")}
+                  onClick={() => {
+                    navigate("/sendemail");
+                  }}
                 >
-                  Profile
-                  {/* <span className="badge">New</span> */}
+                  Registruotis
                 </a>
               </li>
               <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a onClick={logout}>Logout</a>
+                {user.isOnline ? (
+                  <a onClick={logout}>Atsijungti</a>
+                ) : (
+                  <a
+                    onClick={() => {
+                      navigate("/login");
+                    }}
+                  >
+                    Prisijungti
+                  </a>
+                )}
               </li>
             </ul>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 export default Header;

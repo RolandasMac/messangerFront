@@ -12,7 +12,7 @@ function UsersListComponent({ colb }) {
 
   return (
     <div className="">
-      <h1>This is users lis component</h1>
+      {/* <h1>This is users lis component</h1> */}
       <div className="flex flex-col gap-2">
         {allUsers.allUsers.length &&
           allUsers.allUsers.map((cur) => {

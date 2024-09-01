@@ -13,19 +13,23 @@ function Layout(props) {
   });
   const dispatch = useDispatch();
   const [id, setId] = useState(null);
+  const user = useSelector((state) => {
+    return state.user.user;
+  });
 
   useEffect(() => {
     setId(currentConversation._id);
   }, [currentConversation]);
   useEffect(() => {
-    dispatch(getConvList()).then((data) => {
-      // console.log(data);
-      setId(
-        data.payload.data.length > 0
-          ? data.payload.data[0]._id
-          : currentConversation._id
-      );
-    });
+    if (user.isOnline) {
+      dispatch(getConvList()).then((data) => {
+        setId(
+          data.payload.data.length > 0
+            ? data.payload.data[0]._id
+            : currentConversation._id
+        );
+      });
+    }
   }, []);
 
   return (
@@ -34,17 +38,17 @@ function Layout(props) {
         Labas, čia Header
       </Header>
       <div className="flex">
-        <div className="bg-gray-200 rounded flex-none w-24 pl-2">
-          <h4>Toolbar</h4>
+        <div className="bg-gray-200 rounded flex-none w-36 pl-2 mr-5">
+          <h4>Menu</h4>
           <ul>
-            <li>{<Link to="/home">Home</Link>}</li>
-            <li>{<Link to="/todo">Todo</Link>}</li>
-            <li>{<Link to="/sendemail">Send email</Link>}</li>
+            {/* <li>{<Link to="/home">Home</Link>}</li> */}
+            <li>{<Link to="/todo">Priminimai</Link>}</li>
+            {/* <li>{<Link to="/sendemail">Send email</Link>}</li>
             <li>{<Link to="/createuser">Create user</Link>}</li>
-            <li>{<Link to="/login">Login</Link>}</li>
-            <li>{<Link to="/chat">Chat</Link>}</li>
-            <li>{<Link to={`/conversations/${id}`}>Pokalbiai</Link>}</li>
-            <li>{<Link to={"/chatwindow"}>Pokalbiai1</Link>}</li>
+            <li>{<Link to="/login">Login</Link>}</li> */}
+            <li>{<Link to="/chat">Dalyviai</Link>}</li>
+            <li>{<Link to={`/conversations/${id}`}>Susirašinėjimas</Link>}</li>
+            {/* <li>{<Link to={"/chatwindow"}>Pokalbiai1</Link>}</li> */}
           </ul>
         </div>
         <div className="flex-1 w-32">

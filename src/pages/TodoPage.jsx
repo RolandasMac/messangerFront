@@ -122,11 +122,25 @@ function TodoPage(props) {
                 >
                   {cur.task}
                 </span>
-                <input
+                {/* <input
                   type="checkbox"
                   onChange={(event) => setIvykdyta(event, cur._id)}
                   checked={cur.completed}
-                />
+                /> */}
+
+                <div className="form-control">
+                  <label className="label cursor-pointer">
+                    <input
+                      type="checkbox"
+                      defaultChecked
+                      className="checkbox"
+                      onChange={(event) => setIvykdyta(event, cur._id)}
+                      checked={cur.completed}
+                    />
+                    <span className="label-text">Įvykdyta</span>
+                  </label>
+                </div>
+
                 <span>
                   <button
                     className="btn btn-active"

@@ -71,7 +71,7 @@ const MessageList = ({ messages, convId, socket }) => {
         </div>
       </div>
       {/* Messages */}
-      <div>{messages.length}</div>
+      {/* <div>{messages.length}</div> */}
       <div className="flex-1 p-4 overflow-y-auto">
         {user.logged &&
           messages.length > 0 &&

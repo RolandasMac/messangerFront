@@ -41,13 +41,13 @@ function ConversationsPage({ socket }) {
       </button> */}
       <div className="flex flex-row">
         <div className="w-36">
-          <h2>Pokalbių dalyviai</h2>
+          <h2 className="text-center">Dalyviai</h2>
           <ConversationList
           //  onSelectConversation={handleSelectConversation}
           />
         </div>
         <div className="flex-1">
-          <h2>Messages</h2>
+          <h2 className="text-center">Susirašinėjimai</h2>
           {selectedConversation ? (
             <MessageList
               socket={socket}

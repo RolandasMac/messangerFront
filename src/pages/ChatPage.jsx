@@ -3,14 +3,12 @@ import io from "socket.io-client";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../reducers/allUsersSlice";
 import { useNavigate } from "react-router";
-// const socket = io("http://localhost:5004"); // Adjust this if your server is on a different port
 import UsersListComponent from "../components/UsersLisComponent";
 
 const ChatPage = ({ socket, conectedUsers, messages }) => {
   const [message, setMessage] = useState("");
   const [room, setRoom] = useState("");
   const [joinedRoom, setJoinedRoom] = useState(false);
-  //   const [username, setUsername] = useState("");
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => {
     return state.allUsers;
@@ -46,7 +44,7 @@ const ChatPage = ({ socket, conectedUsers, messages }) => {
 
   return (
     <div className="flex flex-row">
-      <div>
+      {/* <div>
         <button
           onClick={async () => {
             console.log(user);
@@ -94,7 +92,7 @@ const ChatPage = ({ socket, conectedUsers, messages }) => {
             </form>
           </div>
         )}
-      </div>
+      </div> */}
       <div className="p-3 flex flex-col gap-3">
         <div>
           <UsersListComponent colb={navColb} />

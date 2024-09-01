@@ -8,14 +8,12 @@ import "../styles.css";
 const ConversationList = () => {
   const dispatch = useDispatch();
   const convList = useSelector((state) => {
-    // console.log(state.convList.convList);
     return state.convList;
   });
 
   const [sortedConversations, setSortedConversations] = useState([]);
 
   useEffect(() => {
-    // console.log(convList.convList);
     if (convList.convList) {
       const sorted = [...convList.convList].sort((a, b) => {
         const nameA = a._id;
@@ -52,7 +50,7 @@ const ConversationList = () => {
                 key={conv._id}
                 className={
                   currentConversation._id == conv._id
-                    ? "bg-slate-300 rounded p-2 "
+                    ? "bg-gray-200 rounded p-2 "
                     : "rounded p-2 flex flex-row justify-between"
                 }
                 onClick={() => navigate(`/conversations/${conv._id}`)}
@@ -61,10 +59,8 @@ const ConversationList = () => {
                   curConv={currentConversation._id}
                   key={conv._id}
                   conversation={conv}
-                  // onSelectConversation={onSelectConversation}
                   curUserId={currentUser.id}
                 />
-
                 <span>
                   {conv.convParticipants.map((cur) => {
                     if (cur.userId === currentUser.id && cur.hasNewMsg > 0) {
