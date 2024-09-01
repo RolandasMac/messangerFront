@@ -1,12 +1,24 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./ProfilePage.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getDate } from "../plugins/plugins.js";
+import {
+  useChangeAvatarMutation,
+  useCreateUserMutation,
+  useGetUserInfoQuery,
+} from "../reducers/auth.js";
+import { getOneUser } from "../reducers/authSlice.js";
 
 const ProfilePage = () => {
   const user = useSelector((state) => {
     return state.user.user;
   });
+  const dispatch = useDispatch();
+  // const { auths } = useGetUserInfoQuery();
+
+  // useEffect(() => {
+  //   alert(user.id);
+  // }, [user]);
   const imageRef = useRef();
   const [avatarLoader, setAvatarLoader] = useState(false);
   const [imageSrc, setImageSrc] = useState(null);
@@ -21,12 +33,13 @@ const ProfilePage = () => {
   //     location: "San Francisco, CA",
   //     email: "john.doe@example.com",
   //   };
-
   const changeImage = () => {
     if (imageRef.current) {
       imageRef.current.click();
     }
   };
+  const [changeAvatar, { data, isError }] = useChangeAvatarMutation();
+  // const [createUser, { data, isError }] = useCreateUserMutation();
   const validateFile = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -36,30 +49,27 @@ const ProfilePage = () => {
         // Create an object URL for the selected image and set it as the image source
         setImageSrc(URL.createObjectURL(file));
         // Call changeAvatar with the selected file
-        changeAvatar(file);
+        changeAvatarfn(file);
+        // alert("Dar veikia");
       } else {
         alert("Pridėkite tinkamą failo tipą: JPEG, PNG arba GIF");
       }
     }
   };
-  async function changeAvatar(image) {
-    setAvatarLoader(true);
+  async function changeAvatarfn(image) {
     const token = localStorage.getItem("token");
     const formData = new FormData();
-    formData.append("avatar", image);
-
-    try {
-      //   const res = await http.postFormData(
-      //     "/private/change-avatar",
-      //     formData,
-      //     token
-      //   );
-      //   setUser({
-      //     avatar: res.avatarUrl,
-      //   });
-      setAvatarLoader(false);
-    } catch (error) {
-      console.error("Error uploading avatar:", error);
+    formData.append("token", token);
+    formData.append("file", image);
+    const { message, success, updatetUser } = await changeAvatar(
+      formData
+    ).unwrap();
+    if (success) {
+      // alert(user.id);
+      // // navigate("/login");
+      console.log(user);
+      // console.log(user);
+      await dispatch(getOneUser(user.id));
     }
   }
 
@@ -110,7 +120,8 @@ const ProfilePage = () => {
                   />
                   <img
                     className="w-44 h-44 rounded-full absolute shadow-lg"
-                    src={avatarLoader ? loadingGif : user.photo}
+                    // src={avatarLoader ? loadingGif : user.photo}
+                    src={user.photo}
                     alt="User avatar"
                   />
 
@@ -119,7 +130,7 @@ const ProfilePage = () => {
                       className="hidden group-hover:block w-40 p-14"
                       src="https://www.svgrepo.com/show/33565/upload.svg"
                       alt=""
-                      onClick={changeImage}
+                      onClick={() => changeImage()}
                     />
                   </div>
                   <input
@@ -127,7 +138,7 @@ const ProfilePage = () => {
                     type="file"
                     id="file-input"
                     className="hidden"
-                    // onChange={validateFile}
+                    onChange={validateFile}
                   />
                 </div>
 

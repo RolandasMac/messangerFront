@@ -4,18 +4,18 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const authApi = createApi({
   reducerPath: "authApi",
   tagTypes: ["Auth"],
-  baseQuery: fetchBaseQuery({ baseUrl: "https://localhost:4001/auth/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://localhost:4001/auth" }),
   endpoints: (builder) => ({
-    // getTodos: builder.query({
-    //   query: () => `todo/`,
-    //   providesTags: (result, error, arg) =>
-    //     result
-    //       ? [
-    //           ...result.map(({ id }) => ({ type: "Todos", id })),
-    //           { type: "Todos", id: "LIST" },
-    //         ]
-    //       : [{ type: "Todos", id: "LIST" }],
-    // }),
+    getUserInfo: builder.query({
+      query: () => `/66cddeb05b52612bffcb21d2`,
+      providesTags: (result, error, arg) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: "Auth", id })),
+              { type: "Auth", id: "LIST" },
+            ]
+          : [{ type: "Auth", id: "LIST" }],
+    }),
     sendCode: builder.mutation({
       query: (body) => ({
         url: `sendemailcode`,
@@ -32,21 +32,22 @@ export const authApi = createApi({
       }),
       invalidatesTags: [{ type: "Auth", id: "LIST" }],
     }),
-    // setIvykdytaTodo: builder.mutation({
-    //   query: (body) => ({
-    //     url: `todo`,
-    //     method: "PATCH",
-    //     body,
-    //   }),
-    //   invalidatesTags: [{ type: "Todos", id: "LIST" }],
-    // }),
+    changeAvatar: builder.mutation({
+      query: (body) => ({
+        url: `changeavatar`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: [{ type: "Auth", id: "LIST" }],
+    }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 export const {
-  //   useGetTodosQuery,
+  useGetUserInfoQuery,
   useSendCodeMutation,
   useCreateUserMutation,
+  useChangeAvatarMutation,
 } = authApi;
