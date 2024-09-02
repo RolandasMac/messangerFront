@@ -56,7 +56,7 @@ function Header({ socket }) {
               <li>
                 {user.isOnline && (
                   <a
-                    className="justify-between"
+                    className="justify-between font-bold"
                     onClick={() => navigate("/profile")}
                   >
                     Profilis
@@ -67,6 +67,7 @@ function Header({ socket }) {
               <li>
                 {!user.isOnline && (
                   <a
+                    className="justify-between font-bold"
                     onClick={() => {
                       navigate("/sendemail");
                     }}
@@ -77,9 +78,12 @@ function Header({ socket }) {
               </li>
               <li>
                 {user.isOnline ? (
-                  <a onClick={logout}>Atsijungti</a>
+                  <a className="justify-between font-bold" onClick={logout}>
+                    Atsijungti
+                  </a>
                 ) : (
                   <a
+                    className="justify-between font-bold"
                     onClick={() => {
                       navigate("/login");
                     }}

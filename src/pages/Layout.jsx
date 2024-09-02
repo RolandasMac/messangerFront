@@ -39,7 +39,10 @@ function Layout(props) {
       </Header>
       <div className="flex">
         <div className="bg-gray-200 rounded flex-none w-40 pl-2 mr-5">
-          <h4 className="mymenu mb-5">Menu</h4>
+          <h4 className="mymenu mb-5 text-center mt-3 mb-0">Menu</h4>
+          <div className="flex w-full flex-col">
+            <div className="divider"></div>
+          </div>
           <ul className="mymenu1 flex flex-col gap-5">
             {/* <li>{<Link to="/home">Home</Link>}</li> */}
             <li>{<Link to="/todo">Priminimai</Link>}</li>

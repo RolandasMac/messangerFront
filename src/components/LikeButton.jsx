@@ -16,7 +16,7 @@ const LikeButton = ({
   const handleLike = async () => {
     if (hasLiked || msglikes.includes(curUser)) return; // Prevent multiple likes by the same user
 
-    alert(msglikes[0]);
+    // alert(msglikes[0]);
     try {
       const like = {
         convId: conversationId,

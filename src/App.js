@@ -156,34 +156,47 @@ function App() {
               </WithLoginComponent>
             }
           />
-          {/* 
           <Route
-            path="chat"
+            path="profile"
             element={
-              <ChatPage
-                socket={socket}
-                conectedUsers={conectedUsers}
-                messages={messages}
-              />
+              <WithLoginComponent>
+                <ProfilePage socket={socket} />
+              </WithLoginComponent>
             }
-          /> */}
-          <Route path="profile" element={<ProfilePage />} />
-          <Route path="changepassword" element={<ChanhePasswordPage />} />
-
+          />
+          <Route
+            path="changepassword"
+            element={
+              <WithLoginComponent>
+                <ChanhePasswordPage socket={socket} />
+              </WithLoginComponent>
+            }
+          />
           <Route
             path="oneuser/:userId"
-            element={<OneUserPage socket={socket} />}
+            element={
+              <WithLoginComponent>
+                <OneUserPage socket={socket} />
+              </WithLoginComponent>
+            }
           />
-          {/* <Route
-            path="conversations/:convId?"
-            element={<ConversationsPage socket={socket} />}
-          /> */}
-          <Route path="chatwindow" element={<ChatWindow socket={socket} />} />
+          {/* <Route path="chatwindow" element={<ChatWindow socket={socket} />} /> */}
           <Route
             path="sendemailforchange"
-            element={<SendEmailForChangePage />}
+            element={
+              <WithLoginComponent>
+                <SendEmailForChangePage socket={socket} />
+              </WithLoginComponent>
+            }
           />
-          <Route path="changeemail" element={<ChanheEmailPage />} />
+          <Route
+            path="changeemail"
+            element={
+              <WithLoginComponent>
+                <ChanheEmailPage socket={socket} />
+              </WithLoginComponent>
+            }
+          />
         </Route>
       </Routes>
     </>
