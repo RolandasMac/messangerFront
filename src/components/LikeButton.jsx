@@ -1,22 +1,25 @@
-import React, { useState } from "react";
-import {
-  addLike,
-  getOneConv,
-  deleteOneConvById,
-} from "../reducers/conversations/oneConvSlice";
+import React, { useEffect, useState } from "react";
+import { addLike } from "../reducers/conversations/oneConvSlice";
 import { useDispatch } from "react-redux";
 
-const LikeButton = ({ conversationId, messageId, userId, msglikes }) => {
-  const [likes, setLikes] = useState(msglikes.length); // Initial state for likes count
+const LikeButton = ({
+  conversationId,
+  messageId,
+  userId,
+  msglikes,
+  curUser,
+}) => {
+  const [likes, setLikes] = useState(msglikes); // Initial state for likes count
   const [hasLiked, setHasLiked] = useState(false); // Initial state to check if the
 
   const dispatch = useDispatch();
 
   const handleLike = async () => {
+    // alert(msgOwner + " " + userId);
     if (hasLiked) return; // Prevent multiple likes by the same user
     console.log(msglikes);
-    alert(messageId);
-    const like = { convId: 123, msgId: 123, userId: 123 };
+    alert(msglikes[0]);
+    const like = { convId: conversationId, msgId: messageId, userId: userId };
     dispatch(addLike(like));
 
     try {
@@ -26,12 +29,18 @@ const LikeButton = ({ conversationId, messageId, userId, msglikes }) => {
       console.error("Error liking the message:", error);
     }
   };
-
+  useEffect(() => {
+    console.log(msglikes);
+  }, []);
   return (
     <div>
-      <button onClick={handleLike} disabled={hasLiked}>
-        {hasLiked ? "Liked" : "Like"} ({likes})
-      </button>
+      {curUser !== userId && (
+        <button onClick={handleLike} disabled={hasLiked}>
+          {hasLiked ? "Liked" : "Like"}
+        </button>
+      )}
+      ({likes}){![123, 123, 123].includes(123) && <span>Rodo</span>}
+      {/* {!msglikes.includes(curUser) && <span>{curUser + userId}</span>} */}
     </div>
   );
 };

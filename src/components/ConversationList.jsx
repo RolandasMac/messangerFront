@@ -47,7 +47,7 @@ const ConversationList = () => {
           sortedConversations.map((conv, index) => {
             return (
               <div
-                key={conv._id}
+                key={index}
                 className={
                   currentConversation._id == conv._id
                     ? "bg-gray-200 rounded p-2 "
@@ -59,7 +59,7 @@ const ConversationList = () => {
               >
                 <ConversationItem
                   curConv={currentConversation._id}
-                  key={conv._id}
+                  // key={index}
                   conversation={conv}
                   curUserId={currentUser.id}
                 />

@@ -18,7 +18,7 @@ const ConversationItem = ({ conversation, curUserId, curConv }) => {
   }
 
   return (
-    <div key={conversation._id}>
+    <div>
       <div className="flex flex-row justify-between">
         <div className="flex flex-row gap-1 flex-wrap">
           {convParticipants.map((participant) =>

@@ -112,6 +112,7 @@ const MessageList = ({ messages, convId, socket }) => {
                 messageId={message._id}
                 userId={message.ownerId}
                 msglikes={message.likes}
+                curUser={user.user.id}
               />
               <div className="chat-bubble">
                 {message.message ? message.message : ""}
