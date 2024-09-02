@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../reducers/authSlice.js";
 import defaultProfilePic from "../images/profile.png";
 import { useNavigate } from "react-router";
+import { deleteOneConvLocaly } from "../reducers/conversations/oneConvSlice.js";
 
 function Header({ socket }) {
   const user = useSelector((state) => {
@@ -21,6 +22,7 @@ function Header({ socket }) {
     // localStorage.removeItem("token");
     // localStorage.removeItem("user");
     dispatch(logoutUser());
+    dispatch(deleteOneConvLocaly());
   }
   return (
     <div className="mb-5">
@@ -63,13 +65,15 @@ function Header({ socket }) {
                 {/* <span className="badge">New</span> */}
               </li>
               <li>
-                <a
-                  onClick={() => {
-                    navigate("/sendemail");
-                  }}
-                >
-                  Registruotis
-                </a>
+                {!user.isOnline && (
+                  <a
+                    onClick={() => {
+                      navigate("/sendemail");
+                    }}
+                  >
+                    Registruotis
+                  </a>
+                )}
               </li>
               <li>
                 {user.isOnline ? (

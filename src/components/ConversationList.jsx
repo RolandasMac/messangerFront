@@ -5,7 +5,7 @@ import { getConvList } from "../reducers/conversations/convListSlice";
 import { useNavigate } from "react-router";
 import "../styles.css";
 
-const ConversationList = () => {
+const ConversationList = ({ setCurrentConv }) => {
   const dispatch = useDispatch();
   const convList = useSelector((state) => {
     return state.convList;
@@ -30,7 +30,7 @@ const ConversationList = () => {
   const currentUser = useSelector((state) => {
     return state.user.user;
   });
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getConvList());
@@ -54,7 +54,7 @@ const ConversationList = () => {
                     : "rounded p-2 flex flex-row justify-between"
                 }
                 onClick={() => {
-                  navigate(`/conversations/${conv._id}`);
+                  setCurrentConv(conv._id);
                 }}
               >
                 <ConversationItem
@@ -65,16 +65,21 @@ const ConversationList = () => {
                 />
                 <span>
                   {conv.convParticipants.map((cur) => {
-                    if (cur.userId === currentUser.id && cur.hasNewMsg > 0) {
+                    if (
+                      currentConversation._id !== conv._id &&
+                      cur.userId === currentUser.id &&
+                      cur.hasNewMsg > 0
+                    ) {
                       return (
                         <div className="notification-icon">
                           <span className="icon">📩</span>
-                          {cur.userId === currentUser.id &&
-                            cur.hasNewMsg > 0 && (
-                              <span className="message-count">
-                                {cur.hasNewMsg}
-                              </span>
-                            )}
+                          {
+                            // cur.userId === currentUser.id &&
+                            //   cur.hasNewMsg > 0 &&
+                            <span className="message-count">
+                              {cur.hasNewMsg}
+                            </span>
+                          }
                         </div>
                       );
                     } else {

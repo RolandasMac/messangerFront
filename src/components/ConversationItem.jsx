@@ -10,7 +10,8 @@ const ConversationItem = ({ conversation, curUserId, curConv }) => {
   const { convParticipants } = conversation;
   const dispatch = useDispatch();
 
-  function deleteConvWarn() {
+  function deleteConvWarn(event) {
+    event.stopPropagation();
     document.getElementById("my_modal_5").showModal();
   }
   function deleteConv(id) {
@@ -41,7 +42,7 @@ const ConversationItem = ({ conversation, curUserId, curConv }) => {
         {conversation._id === curConv && (
           <div
             className="indicator-item badge badge-warning"
-            onClick={() => deleteConvWarn()}
+            onClick={(event) => deleteConvWarn(event)}
           >
             <Delete style={{ fontSize: 18 }} />
 

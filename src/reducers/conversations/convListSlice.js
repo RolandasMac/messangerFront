@@ -14,7 +14,7 @@ const convListSlice = createAppSlice({
   },
   reducers: (create) => ({
     // A normal "case reducer", same as always
-    // updateConvListHasNewMsg: create.reducer((state, action) => {
+    // deleteList: create.reducer((state, action) => {
     //   console.log(action.payload);
 
     //   console.log(state.convList);

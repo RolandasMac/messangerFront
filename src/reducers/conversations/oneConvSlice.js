@@ -37,6 +37,14 @@ const oneConvSlice = createAppSlice({
         state.oneConv.messages.push(action.payload.message);
       }
     ),
+    deleteAll: create.preparedReducer(
+      (message) => {
+        return { payload: { message: message } };
+      },
+      (state, action) => {
+        state.oneConv.messages.push(action.payload.message);
+      }
+    ),
     // An async thunk
     getOneConv: create.asyncThunk(
       // Async payload function as the first argument

@@ -47,7 +47,9 @@ const MessageList = ({ messages, convId, socket }) => {
               Spauskite ant norimo pridėti vartotojo kortelės
             </h3>
             <UsersListComponent colb={handleClick} />
-            <p className="py-4">Press ESC key or click outside to close</p>
+            <p className="py-4">
+              Uždarymui spauskite ESC mygtuką už kortelės ribų
+            </p>
           </div>
           <form method="dialog" className="modal-backdrop">
             <button>close</button>
