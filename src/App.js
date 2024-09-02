@@ -17,6 +17,7 @@ import ConversationsPage from "./pages/ConversationsPage.jsx";
 import {
   addMessage,
   deleteOneConvLocaly,
+  getRenewedOneConvById,
 } from "./reducers/conversations/oneConvSlice.js";
 import {
   getConvList,
@@ -89,6 +90,7 @@ function App() {
       });
 
       newSocket.on("newmessage", async (lastMessage) => {
+        console.log(lastMessage);
         if (newConverIdRef.current._id === lastMessage._id) {
           dispatch(addMessage(lastMessage.lastMessage));
         } else {
@@ -105,6 +107,18 @@ function App() {
         if (newConverIdRef.current._id === convId) {
           // alert("sutapo");
           dispatch(deleteOneConvLocaly());
+        }
+      });
+      newSocket.on("renewOneConvData", async (convId) => {
+        alert(convId);
+        // dispatch(getConvList());
+        // Dar reikia visą sąrašą žinučių atnaujinti
+        // alert("Suveikė");
+        // alert(convId + " " + newConverIdRef.current._id);
+        // console.log(oneConv);
+        if (newConverIdRef.current._id === convId) {
+          // alert("sutapo");
+          dispatch(getRenewedOneConvById({ convId: convId }));
         }
       });
 

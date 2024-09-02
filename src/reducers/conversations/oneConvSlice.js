@@ -247,6 +247,53 @@ const oneConvSlice = createAppSlice({
         },
       }
     ),
+    getRenewedOneConvById: create.asyncThunk(
+      // Async payload function as the first argument
+      async ({ convId }, { rejectWithValue, dispatch }) => {
+        try {
+          const response = await fetch(
+            `https://localhost:4001/conversations/getconversationbyid/${convId}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+              mode: "cors",
+            }
+          );
+          // console.log(response);
+          if (!response.ok) {
+            const errorData = await response.json();
+            // console.log("Error:", errorData.message);
+            throw new Error("Server error:" + errorData.message);
+          }
+          const data = await response.json();
+          // console.log(data);
+          return { data };
+        } catch (error) {
+          // console.log(error);
+          return rejectWithValue(error.message);
+        }
+      },
+      {
+        pending: (state) => {
+          state.loading = true;
+        },
+        rejected: (state, action) => {
+          state.error = action.payload;
+          // console.log(action.error, action.payload);
+        },
+        fulfilled: (state, action) => {
+          // console.log(action.payload.data);
+          state.oneConv = action.payload.data;
+        },
+        // settled is called for both rejected and fulfilled actions
+        settled: (state, action) => {
+          state.loading = false;
+        },
+      }
+    ),
   }),
 });
 export const {
@@ -256,6 +303,7 @@ export const {
   deleteOneConvById,
   deleteOneConvLocaly,
   addLike,
+  getRenewedOneConvById,
 } = oneConvSlice.actions;
 export default oneConvSlice.reducer;
 

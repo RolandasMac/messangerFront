@@ -79,13 +79,13 @@ const MessageList = ({ messages, convId, socket }) => {
         {user.logged &&
           messages.length > 0 &&
           // false &&
-          messages.toReversed().map((message, index) => (
+          messages.toReversed().map((message) => (
             // {
             //   <span>{message.owner.}</span>
             //   console.log(message)
             // }
             <div
-              key={index}
+              key={message._id}
               className={
                 user.user.id === message.ownerId
                   ? "chat chat-end"

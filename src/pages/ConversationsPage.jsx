@@ -47,6 +47,16 @@ function ConversationsPage({ socket }) {
 
   return (
     <>
+      <button
+        onClick={() => {
+          alert("Bybys");
+          console.log(currentConversation);
+        }}
+      >
+        {" "}
+        Log{" "}
+      </button>
+
       <div className="flex flex-row">
         <div className="w-36">
           <h2 className="text-center">Dalyviai</h2>
