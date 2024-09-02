@@ -29,13 +29,9 @@ function Header({ socket }) {
       <div className="navbar bg-gray-200 rounded">
         <h1 className="flex-1">Rolando susirašinėjimų erdvė</h1>
         <div className="flex-none gap-2">
-          {/* <div className="form-control">
-            <input
-              type="text"
-              placeholder="Search"
-              className="input input-bordered w-24 md:w-auto"
-            />
-          </div> */}
+          <div className="">
+            <h4>{user.name ? user.name : ""}</h4>
+          </div>
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
