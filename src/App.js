@@ -28,7 +28,7 @@ import WithLoginComponent from "./components/WithLoginComponent.jsx";
 import ChanhePasswordPage from "./pages/loginPages/ChangePasswordPage.jsx";
 import SendEmailForChangePage from "./pages/loginPages/SendEmailForChange.jsx";
 import ChanheEmailPage from "./pages/loginPages/ChangeEmailPage.jsx";
-
+import { getOneUser } from "./reducers/oneUserSlice.js";
 function App() {
   const oneConv = useSelector((state) => {
     return state.oneConv.oneConv;
@@ -100,25 +100,18 @@ function App() {
       });
       newSocket.on("renewData", async (convId) => {
         dispatch(getConvList());
-        // Dar reikia visą sąrašą žinučių atnaujinti
-        // alert("Suveikė");
-        // alert(convId + " " + newConverIdRef.current._id);
-        // console.log(oneConv);
         if (newConverIdRef.current._id === convId) {
-          // alert("sutapo");
           dispatch(deleteOneConvLocaly());
         }
       });
       newSocket.on("renewOneConvData", async (convId) => {
-        alert(convId);
-        // dispatch(getConvList());
-        // Dar reikia visą sąrašą žinučių atnaujinti
-        // alert("Suveikė");
-        // alert(convId + " " + newConverIdRef.current._id);
-        // console.log(oneConv);
         if (newConverIdRef.current._id === convId) {
-          // alert("sutapo");
           dispatch(getRenewedOneConvById({ convId: convId }));
+        }
+      });
+      newSocket.on("renewOneUserData", async (data) => {
+        if (user.user.id === data) {
+          dispatch(getOneUser(data));
         }
       });
 
