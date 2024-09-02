@@ -47,7 +47,7 @@ function OneUserPage({ socket }) {
 
   useEffect(() => {
     dispatch(getOneUser(userId));
-    console.log(oneUser.oneUser);
+    // console.log(oneUser.oneUser);
   }, []);
 
   return (

@@ -180,20 +180,8 @@ const oneConvSlice = createAppSlice({
           // console.log(action.error, action.payload);
         },
         fulfilled: (state, action) => {
-          console.log(action.payload.data.deletedConversation);
-
+          // console.log(action.payload.data.deletedConversation);
           // state.oneConv = action.payload.data.deletedConversation;
-          // const { convParticipants, createdAt, messages, updatedAt, _id } =
-          //   action.payload.data.deletedConversation;
-
-          // console.log(messages);
-          // state.oneConv = {
-          //   convParticipants1: convParticipants,
-          //   createdAt: createdAt,
-          //   messages: messages,
-          //   updatedAt: updatedAt,
-          //   _id: _id,
-          // };
         },
         // settled is called for both rejected and fulfilled actions
         settled: (state, action) => {
@@ -225,7 +213,7 @@ const oneConvSlice = createAppSlice({
             throw new Error("Server error:" + errorData.message);
           }
           const data = await response.json();
-          console.log(data);
+          // console.log(data);
           return { data };
         } catch (error) {
           // console.log(error);
@@ -240,7 +228,7 @@ const oneConvSlice = createAppSlice({
           state.error = action.payload;
         },
         fulfilled: (state, action) => {
-          console.log(action.payload.data.updatedconveration);
+          // console.log(action.payload.data.updatedconveration);
         },
         settled: (state, action) => {
           state.loading = false;

@@ -90,7 +90,7 @@ function App() {
       });
 
       newSocket.on("newmessage", async (lastMessage) => {
-        console.log(lastMessage);
+        // console.log(lastMessage);
         if (newConverIdRef.current._id === lastMessage._id) {
           dispatch(addMessage(lastMessage.lastMessage));
         } else {

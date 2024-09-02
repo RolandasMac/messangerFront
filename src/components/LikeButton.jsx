@@ -31,7 +31,7 @@ const LikeButton = ({
     }
   };
   useEffect(() => {
-    console.log(msglikes);
+    // console.log(msglikes);
   }, []);
   return (
     <div>
