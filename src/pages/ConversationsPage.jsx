@@ -48,12 +48,11 @@ function ConversationsPage({ socket }) {
   return (
     <>
       {/* <button
-        onClick={() => {         
+        onClick={() => {
           console.log(currentConversation);
         }}
       >
-        {" "}
-        Log{" "}
+        Log state
       </button> */}
 
       <div className="flex flex-row">

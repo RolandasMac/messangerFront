@@ -160,29 +160,27 @@ const ProfilePage = () => {
                     </button>
                   </div>
                 </div>
-
-                {/* <p className="">{user.bio}</p> */}
               </div>
 
               <div className="flex flex-col gap-3">
                 <h1>{user.name}</h1>
                 {/* <strong>Vartotojo informacija</strong> */}
-                <p>
+                <div>
                   <strong>El. paštas: </strong>
                   <a href={`mailto:${user.email}`}>{user.email}</a>
-                </p>
-                <p>
+                </div>
+                <div>
                   <strong>Paskyra sukurta:</strong>
                   <p>{getDate(user.createdAt)}</p>
-                </p>
-                <p>
+                </div>
+                <div>
                   <strong>Paskutinis prisijungimas:</strong>
                   <p>{getDate(user.lastloggedAt)}</p>
-                </p>
-                <p>
+                </div>
+                <div>
                   <strong>Informacija atnaujinta:</strong>
                   <p>{getDate(user.updatedAt)}</p>
-                </p>{" "}
+                </div>{" "}
               </div>
             </div>
           </div>

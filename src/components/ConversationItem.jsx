@@ -35,7 +35,7 @@ const ConversationItem = ({ conversation, curUserId, curConv }) => {
                 </div>
               </div>
             ) : (
-              <div></div>
+              <div key={participant.userId}></div>
             )
           )}
         </div>
