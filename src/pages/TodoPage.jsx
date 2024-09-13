@@ -146,7 +146,7 @@ function TodoPage(props) {
                     className="btn btn-active"
                     onClick={() => removeTodo(cur._id)}
                   >
-                    Sukurti užduotį
+                    Trinti užduotį
                   </button>
                 </span>
               </div>

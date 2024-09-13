@@ -110,9 +110,10 @@ function App() {
         }
       });
       newSocket.on("renewOneUserData", async (data) => {
-        if (user.user.id === data) {
-          dispatch(getOneUser(data));
-        }
+        // alert(data + " " + user.user.id);
+        // if (user.user.id === data) {
+        dispatch(getOneUser(data));
+        // }
       });
 
       return () => {
