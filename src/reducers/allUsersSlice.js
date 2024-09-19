@@ -1,5 +1,5 @@
 import { buildCreateSlice, asyncThunkCreator } from "@reduxjs/toolkit";
-
+import { backHost } from "../plugins/host";
 const createAppSlice = buildCreateSlice({
   creators: { asyncThunk: asyncThunkCreator },
 });
@@ -37,19 +37,16 @@ const allUsersSlice = createAppSlice({
       // Async payload function as the first argument
       async (__, { rejectWithValue }) => {
         try {
-          const response = await fetch(
-            `https://localhost:4001/auth/getallusers`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              credentials: "include",
-              // withCredentials: true,
-              // body: JSON.stringify(sendData),
-              // mode: "cors",
-            }
-          );
+          const response = await fetch(`${backHost}auth/getallusers`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+            // withCredentials: true,
+            // body: JSON.stringify(sendData),
+            // mode: "cors",
+          });
           // console.log(response);
           if (!response.ok) {
             const errorData = await response.json();

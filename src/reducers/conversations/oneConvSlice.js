@@ -1,5 +1,5 @@
 import { buildCreateSlice, asyncThunkCreator } from "@reduxjs/toolkit";
-
+import { backHost } from "../../plugins/host";
 const createAppSlice = buildCreateSlice({
   creators: { asyncThunk: asyncThunkCreator },
 });
@@ -50,18 +50,15 @@ const oneConvSlice = createAppSlice({
       // Async payload function as the first argument
       async (sendData, { rejectWithValue, dispatch }) => {
         try {
-          const response = await fetch(
-            `https://localhost:4001/conversations/create`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              credentials: "include",
-              body: JSON.stringify(sendData),
-              mode: "cors",
-            }
-          );
+          const response = await fetch(`${backHost}conversations/create`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify(sendData),
+            mode: "cors",
+          });
           // console.log(response);
           if (!response.ok) {
             const errorData = await response.json();
@@ -98,7 +95,7 @@ const oneConvSlice = createAppSlice({
       async ({ convId, oldId }, { rejectWithValue, dispatch }) => {
         try {
           const response = await fetch(
-            `https://localhost:4001/conversations/getconversationbyid/${convId}`,
+            `${backHost}conversations/getconversationbyid/${convId}`,
             {
               method: "POST",
               headers: {
@@ -147,7 +144,7 @@ const oneConvSlice = createAppSlice({
       async ({ convId }, { rejectWithValue, dispatch }) => {
         try {
           const response = await fetch(
-            `https://localhost:4001/conversations/deleteconversationbyid/${convId}`,
+            `${backHost}conversations/deleteconversationbyid/${convId}`,
             {
               method: "GET",
               headers: {
@@ -194,18 +191,15 @@ const oneConvSlice = createAppSlice({
 
       async (like, { rejectWithValue, dispatch }) => {
         try {
-          const response = await fetch(
-            `https://localhost:4001/conversations/addlike`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              credentials: "include",
-              body: JSON.stringify(like),
-              mode: "cors",
-            }
-          );
+          const response = await fetch(`${backHost}conversations/addlike`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify(like),
+            mode: "cors",
+          });
           // alert("Veikia");
           if (!response.ok) {
             const errorData = await response.json();
@@ -240,7 +234,7 @@ const oneConvSlice = createAppSlice({
       async ({ convId }, { rejectWithValue, dispatch }) => {
         try {
           const response = await fetch(
-            `https://localhost:4001/conversations/getconversationbyid/${convId}`,
+            `${backHost}conversations/getconversationbyid/${convId}`,
             {
               method: "GET",
               headers: {
@@ -250,17 +244,13 @@ const oneConvSlice = createAppSlice({
               mode: "cors",
             }
           );
-          // console.log(response);
           if (!response.ok) {
             const errorData = await response.json();
-            // console.log("Error:", errorData.message);
             throw new Error("Server error:" + errorData.message);
           }
           const data = await response.json();
-          // console.log(data);
           return { data };
         } catch (error) {
-          // console.log(error);
           return rejectWithValue(error.message);
         }
       },
@@ -270,11 +260,9 @@ const oneConvSlice = createAppSlice({
         },
         rejected: (state, action) => {
           state.error = action.payload;
-          // console.log(action.error, action.payload);
         },
         fulfilled: (state, action) => {
-          // console.log(action.payload.data);
-          state.oneConv = action.payload.data;
+          state.oneConv = { ...action.payload.data };
         },
         // settled is called for both rejected and fulfilled actions
         settled: (state, action) => {

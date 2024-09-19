@@ -1,5 +1,5 @@
 import { buildCreateSlice, asyncThunkCreator } from "@reduxjs/toolkit";
-
+import { backHost } from "../plugins/host";
 const createAppSlice = buildCreateSlice({
   creators: { asyncThunk: asyncThunkCreator },
 });
@@ -37,7 +37,7 @@ const authSlice = createAppSlice({
       // Async payload function as the first argument
       async (sendData, { rejectWithValue, dispatch }) => {
         try {
-          const response = await fetch(`https://localhost:4001/auth/login`, {
+          const response = await fetch(`${backHost}auth/login`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -87,31 +87,25 @@ const authSlice = createAppSlice({
     ),
     autologinUser: create.asyncThunk(
       // Async payload function as the first argument
-      async (token, { rejectWithValue, dispatch }) => {
+      async (__, { rejectWithValue, dispatch }) => {
         try {
-          const response = await fetch(
-            `https://localhost:4001/auth/autologin`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              credentials: "include",
-              body: JSON.stringify(token),
-              mode: "cors",
-            }
-          );
-          // console.log(response);
+          const response = await fetch(`${backHost}auth/autologin`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+            mode: "cors",
+          });
           if (!response.ok) {
             const errorData = await response.json();
-            // console.log("Error:", errorData.message);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
             throw new Error("Server error:" + errorData.message);
           }
           const data = await response.json();
-          // console.log(data);
           return { data };
         } catch (error) {
-          // console.log(error);
           return rejectWithValue(error.message);
         }
       },
@@ -121,7 +115,6 @@ const authSlice = createAppSlice({
         },
         rejected: (state, action) => {
           state.error = action.payload;
-          // console.log(action.error, action.payload);
         },
         fulfilled: (state, action) => {
           state.user = action.payload.data.userData;
@@ -142,7 +135,7 @@ const authSlice = createAppSlice({
       // Async payload function as the first argument
       async (__, { rejectWithValue, dispatch }) => {
         try {
-          const response = await fetch(`https://localhost:4001/auth/logout`, {
+          const response = await fetch(`${backHost}auth/logout`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -190,20 +183,17 @@ const authSlice = createAppSlice({
       // Async payload function as the first argument
       async (data, { rejectWithValue, dispatch }) => {
         try {
-          const response = await fetch(
-            `https://localhost:4001/auth/changeavatar`,
-            {
-              method: "POST",
-              headers: {
-                // "Content-Type": "application/json",
-                "Content-Type": "multipart/form-data",
-                // "Access-Control-Allow-Credentials": true,
-                "Access-Control-Allow-Headers": "Coookie",
-              },
-              credentials: "include",
-              mode: "cors",
-            }
-          );
+          const response = await fetch(`${backHost}auth/changeavatar`, {
+            method: "POST",
+            headers: {
+              // "Content-Type": "application/json",
+              "Content-Type": "multipart/form-data",
+              // "Access-Control-Allow-Credentials": true,
+              "Access-Control-Allow-Headers": "Coookie",
+            },
+            credentials: "include",
+            mode: "cors",
+          });
           // console.log(response);
           if (!response.ok) {
             const errorData = await response.json();
@@ -240,17 +230,14 @@ const authSlice = createAppSlice({
       // Async payload function as the first argument
       async (userId, { rejectWithValue }) => {
         try {
-          const response = await fetch(
-            `https://localhost:4001/auth/${userId}`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              credentials: "include",
-              mode: "cors",
-            }
-          );
+          const response = await fetch(`${backHost}auth/${userId}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+            mode: "cors",
+          });
           // console.log(response);
           if (!response.ok) {
             const errorData = await response.json();
@@ -287,20 +274,17 @@ const authSlice = createAppSlice({
       // Async payload function as the first argument
       async (sendData, { rejectWithValue, dispatch }) => {
         try {
-          const response = await fetch(
-            `https://localhost:4001/auth/changeuserpassword`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                // "Access-Control-Allow-Credentials": true,
-                "Access-Control-Allow-Headers": "Coookie",
-              },
-              credentials: "include",
-              body: JSON.stringify(sendData),
-              mode: "cors",
-            }
-          );
+          const response = await fetch(`${backHost}auth/changeuserpassword`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              // "Access-Control-Allow-Credentials": true,
+              "Access-Control-Allow-Headers": "Coookie",
+            },
+            credentials: "include",
+            body: JSON.stringify(sendData),
+            mode: "cors",
+          });
           // console.log(response);
           if (!response.ok) {
             const errorData = await response.json();
@@ -337,20 +321,17 @@ const authSlice = createAppSlice({
       // Async payload function as the first argument
       async (sendData, { rejectWithValue, dispatch }) => {
         try {
-          const response = await fetch(
-            `https://localhost:4001/auth/changeuseremail`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                // "Access-Control-Allow-Credentials": true,
-                "Access-Control-Allow-Headers": "Coookie",
-              },
-              credentials: "include",
-              body: JSON.stringify(sendData),
-              mode: "cors",
-            }
-          );
+          const response = await fetch(`${backHost}auth/changeuseremail`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              // "Access-Control-Allow-Credentials": true,
+              "Access-Control-Allow-Headers": "Coookie",
+            },
+            credentials: "include",
+            body: JSON.stringify(sendData),
+            mode: "cors",
+          });
           // console.log(response);
           if (!response.ok) {
             const errorData = await response.json();

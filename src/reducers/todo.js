@@ -1,10 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { backHost } from "../plugins/host";
 
 // Define a service using a base URL and expected endpoints
 export const todoApi = createApi({
   reducerPath: "todoApi",
   tagTypes: ["Todos"],
-  baseQuery: fetchBaseQuery({ baseUrl: "https://localhost:4001/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: backHost,
+    credentials: "include",
+  }),
+  // baseQuery: fetchBaseQuery({ baseUrl: "https://localhost:4001/" }),
   endpoints: (builder) => ({
     getTodos: builder.query({
       query: () => `todo/`,

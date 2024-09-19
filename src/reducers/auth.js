@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { backHost } from "../plugins/host";
 // Define a service using a base URL and expected endpoints
 export const authApi = createApi({
   reducerPath: "authApi",
   tagTypes: ["Auth"],
-  baseQuery: fetchBaseQuery({ baseUrl: "https://localhost:4001/auth" }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${backHost}auth` }),
   endpoints: (builder) => ({
     getUserInfo: builder.query({
       query: () => `/66cddeb05b52612bffcb21d2`,

@@ -48,7 +48,14 @@ function TodoPage(props) {
     setStar2(nextValue);
   };
   //RTK querry********************************
-  const { data = [], error, isLoading } = useGetTodosQuery();
+  const {
+    data = [],
+    error,
+    isLoading,
+    refetch,
+  } = useGetTodosQuery(null, {
+    refetchOnMountOrArgChange: true,
+  });
   const [addTodo, { dat, isError }] = useAddTodoMutation();
   const [deleteTodo] = useDeleteTodoMutation();
   const [updateTodo] = useSetIvykdytaTodoMutation();
@@ -87,7 +94,7 @@ function TodoPage(props) {
   //****************************************************** */
 
   useEffect(() => {
-    // console.log(data);
+    console.log(data);
   }, [data]);
   if (isLoading) return <h1>Loading...</h1>;
   return (

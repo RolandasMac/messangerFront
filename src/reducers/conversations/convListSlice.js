@@ -1,5 +1,5 @@
 import { buildCreateSlice, asyncThunkCreator } from "@reduxjs/toolkit";
-
+import { backHost } from "../../plugins/host";
 const createAppSlice = buildCreateSlice({
   creators: { asyncThunk: asyncThunkCreator },
 });
@@ -67,7 +67,7 @@ const convListSlice = createAppSlice({
       async (__, { rejectWithValue }) => {
         try {
           const response = await fetch(
-            `https://localhost:4001/conversations/getconversationslist`,
+            `${backHost}conversations/getconversationslist`,
             {
               method: "GET",
               headers: {
@@ -114,7 +114,7 @@ const convListSlice = createAppSlice({
       async ({ convId, userId }, { rejectWithValue, dispatch }) => {
         try {
           const response = await fetch(
-            `https://localhost:4001/conversations/addnewparticipant/${convId}`,
+            `${backHost}conversations/addnewparticipant/${convId}`,
             {
               method: "POST",
               headers: {

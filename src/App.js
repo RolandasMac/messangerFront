@@ -29,6 +29,7 @@ import ChanhePasswordPage from "./pages/loginPages/ChangePasswordPage.jsx";
 import SendEmailForChangePage from "./pages/loginPages/SendEmailForChange.jsx";
 import ChanheEmailPage from "./pages/loginPages/ChangeEmailPage.jsx";
 import { getOneUser } from "./reducers/oneUserSlice.js";
+import { backSocketHost } from "./plugins/host.js";
 function App() {
   const oneConv = useSelector((state) => {
     return state.oneConv.oneConv;
@@ -47,6 +48,15 @@ function App() {
   const user = useSelector((state) => {
     return state.user;
   });
+  const oneUserId = useSelector((state) => {
+    return state.oneUser.oneUser.id;
+  });
+  const newOneUserIdRef = useRef(oneUserId);
+
+  useEffect(() => {
+    newOneUserIdRef.current = oneUserId; // Update ref whenever state changes
+  }, [oneUserId]);
+
   const [socket, setSocket] = useState(null);
   const [conectedUsers, setConectedUsers] = useState([]);
 
@@ -62,7 +72,7 @@ function App() {
   }, [dispatch]);
   useEffect(() => {
     if (user.logged) {
-      const newSocket = io("http://localhost:5004");
+      const newSocket = io(`https://${backSocketHost}:5004`);
       setSocket(newSocket);
       newSocket.emit("clientInfo", {
         id: user.user.id,
@@ -110,10 +120,9 @@ function App() {
         }
       });
       newSocket.on("renewOneUserData", async (data) => {
-        // alert(data + " " + user.user.id);
-        // if (user.user.id === data) {
-        dispatch(getOneUser(data));
-        // }
+        if (newOneUserIdRef.current === data) {
+          dispatch(getOneUser(data));
+        }
       });
 
       return () => {

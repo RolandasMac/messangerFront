@@ -1,21 +1,20 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import UsersListComponent from "../components/UsersLisComponent";
 import { addNewParticipant } from "../reducers/conversations/convListSlice";
 import LikeButton from "./LikeButton";
-const MessageList = ({ messages, convId, socket }) => {
+const MessageList = ({ convId, socket }) => {
   const user = useSelector((state) => {
     return state.user;
   });
   const oneConv = useSelector((state) => {
     return state.oneConv.oneConv;
   });
+  const messages = useSelector((state) => state.oneConv.oneConv.messages);
   const messageRef = useRef();
   const dispatch = useDispatch();
 
   function sendMessage() {
-    // alert(oneConv._id + " " + user.id);
-
     const message = messageRef.current.value;
     if (message !== "") {
       socket.emit("chatMessage", {
@@ -27,14 +26,12 @@ const MessageList = ({ messages, convId, socket }) => {
     }
   }
   function handleClick(id) {
-    // alert(id + " " + oneConv._id);
     dispatch(addNewParticipant({ userId: id, convId: oneConv._id }));
   }
 
   return (
     <div className="flex flex-col h-full max-w-lg mx-auto bg-white shadow-lg rounded-lg">
       <div className="p-4 border-b border-gray-200 flex flex-row justify-end">
-        {/* <h2 className="text-xl font-semibold">Susirašinėjumų platforma</h2> */}
         <button
           className="btn "
           onClick={() => document.getElementById("my_modal_2").showModal()}
@@ -73,17 +70,10 @@ const MessageList = ({ messages, convId, socket }) => {
           </button>
         </div>
       </div>
-      {/* Messages */}
-      {/* <div>{messages.length}</div> */}
       <div className="flex-1 p-4 overflow-y-auto">
         {user.logged &&
           messages.length > 0 &&
-          // false &&
           messages.toReversed().map((message) => (
-            // {
-            //   <span>{message.owner.}</span>
-            //   console.log(message)
-            // }
             <div
               key={message._id}
               className={
@@ -106,9 +96,6 @@ const MessageList = ({ messages, convId, socket }) => {
                   {new Date(message.createdAt).toLocaleString()}
                 </time>
               </div>
-              {/* <button onClick={() => alert(message._id + " " + user.user.id)}>
-                Like
-              </button> */}
               <LikeButton
                 conversationId={oneConv._id}
                 messageId={message._id}
@@ -119,10 +106,8 @@ const MessageList = ({ messages, convId, socket }) => {
               <div className="chat-bubble">
                 {message.message ? message.message : ""}
               </div>
-              {/* <div className="chat-footer opacity-50">Delivered</div> */}
             </div>
           ))}
-        {/* <div ref={messagesEndRef} /> */}
       </div>
     </div>
   );
