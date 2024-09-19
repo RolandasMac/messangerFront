@@ -30,6 +30,10 @@ import SendEmailForChangePage from "./pages/loginPages/SendEmailForChange.jsx";
 import ChanheEmailPage from "./pages/loginPages/ChangeEmailPage.jsx";
 import { getOneUser } from "./reducers/oneUserSlice.js";
 import { backSocketHost } from "./plugins/host.js";
+import AboutPage from "./pages/AboutPage.jsx";
+import ResumePage from "./pages/ResumePage.jsx";
+import ContactPage from "./pages/ContactPage.jsx";
+
 function App() {
   const oneConv = useSelector((state) => {
     return state.oneConv.oneConv;
@@ -141,7 +145,18 @@ function App() {
         <Route path="/" element={<Layout socket={socket} />}>
           <Route index element={<HomePage />} />
           <Route path="home" element={<HomePage />} />
-          <Route path="todo" element={<TodoPage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="resume" element={<ResumePage />} />
+          <Route path="contact" element={<ContactPage />} />
+          <Route
+            path="todo"
+            element={
+              <WithLoginComponent>
+                <TodoPage />
+              </WithLoginComponent>
+            }
+          />
+          {/* <Route path="todo" element={<TodoPage />} /> */}
           <Route path="sendemail" element={<SendEmailPage />} />
           <Route path="createuser" element={<CreateUserPage />} />
           <Route path="login" element={<LoginPage />} />

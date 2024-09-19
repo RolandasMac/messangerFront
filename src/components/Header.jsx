@@ -3,7 +3,7 @@ import { logoutUser } from "../reducers/authSlice.js";
 import defaultProfilePic from "../images/profile.png";
 import { useNavigate } from "react-router";
 import { deleteOneConvLocaly } from "../reducers/conversations/oneConvSlice.js";
-
+import logo from "../images/logo2.png";
 function Header({ socket }) {
   const user = useSelector((state) => {
     return state.user.user;
@@ -26,8 +26,19 @@ function Header({ socket }) {
   }
   return (
     <div className="mb-5">
-      <div className="navbar bg-gray-200 rounded">
-        <h1 className="flex-1">Rolando susirašinėjimų erdvė</h1>
+      <div className="navbar bg-gray-200 rounded flex flex-row justify-between">
+        {/* <h1 className="flex-1">Rolando susirašinėjimų erdvė</h1> */}
+        <img
+          src={logo}
+          width={150}
+          // preview={false}
+          style={{
+            filter: "drop-shadow(2px 2px 2px red)",
+            color: "white",
+            padding: "0px 0px 0px 0px",
+            margin: "-10px 0px 0px 0px",
+          }}
+        />
         <div className="flex-none gap-2">
           <div className="">
             <h4>{user.name ? user.name : ""}</h4>

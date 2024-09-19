@@ -38,17 +38,26 @@ function Layout(props) {
         Labas, čia Header
       </Header>
       <div className="flex">
-        <div className="bg-gray-200 rounded flex-none w-40 pl-2 mr-5">
+        <div className="bg-gray-200 rounded flex-none w-40 pl-2 mr-5 min-h-full">
           <h4 className="mymenu mb-5 text-center mt-3 mb-0">Menu</h4>
           <div className="flex w-full flex-col">
             <div className="divider"></div>
           </div>
           <ul className="mymenu1 flex flex-col gap-5">
-            {/* <li>{<Link to="/home">Home</Link>}</li> */}
+            <li>{<Link to="/home">Home</Link>}</li>
+
+            <li>{<Link to="/about">Apie mane</Link>}</li>
+            <li>{<Link to="/resume">Resume</Link>}</li>
+            <li>{<Link to="/contact">Kontaktai</Link>}</li>
+
             <li>{<Link to="/todo">Priminimai</Link>}</li>
             {/* <li>{<Link to="/sendemail">Send email</Link>}</li>
             <li>{<Link to="/createuser">Create user</Link>}</li>
             <li>{<Link to="/login">Login</Link>}</li> */}
+            <h4 className="text-center m-0 p-0">Chat'as</h4>
+            {/* <div className="flex w-full h-2 flex-col">
+              <div className="divider"></div>
+            </div> */}
             <li>{<Link to="/chat">Dalyviai</Link>}</li>
             <li>{<Link to={`/conversations/${id}`}>Susirašinėjimas</Link>}</li>
             {/* <li>{<Link to={"/chatwindow"}>Pokalbiai1</Link>}</li> */}

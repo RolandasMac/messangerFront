@@ -1,205 +1,60 @@
-import { useState, useRef, useEffect } from "react";
-import daisyui from "daisyui";
-
-import { getDate } from "../plugins/plugins";
-
-import ReactStars from "react-stars";
-import React from "react";
-import { render } from "react-dom";
-
-import ReactStars1 from "react-rating-star-with-type";
-
-import ReactStars2 from "react-rating-star-with-type";
-
-// RTK querry  ***********
-import {
-  useGetTodosQuery,
-  useAddTodoMutation,
-  useDeleteTodoMutation,
-  useSetIvykdytaTodoMutation,
-} from "../reducers/todo";
-//************************ */
+import { useEffect, useRef } from "react";
+import Typed from "typed.js";
+import backGImage from "../images/VSCode1.JPG";
 
 function HomePage(props) {
-  const { fraze, socket, fraze1 } = props;
-  const input = useRef();
-  const input1 = useRef();
-  // const handlesubmit = () => {
-  //   const fraz = input.current.value;
-  //   socket.emit("message", { fraze: fraz });
-  // };
-  // const handlesubmit1 = () => {
-  //   const fraz = input1.current.value;
-  //   socket.emit("message1", { fraze: fraz });
-  // };
-  const ratingChanged = (newRating) => {
-    console.log(newRating);
-  };
-
-  const [star, setStar] = useState(5);
-
-  const onChange = (nextValue) => {
-    setStar(nextValue);
-  };
-
-  const [star2, setStar2] = useState(5);
-
-  const onChange2 = (nextValue) => {
-    setStar2(nextValue);
-  };
-  //RTK querry********************************
-  const { data = [], error, isLoading } = useGetTodosQuery();
-  const [addTodo, { dat, isError }] = useAddTodoMutation();
-  const [deleteTodo] = useDeleteTodoMutation();
-  const [updateTodo] = useSetIvykdytaTodoMutation();
-
-  async function setTodo(event) {
-    const form = event.currentTarget.parentElement;
-    const data = new FormData(form);
-    let sendData = {};
-    for (let [key, value] of data) {
-      sendData[key] = value;
-    }
-    const body = {
-      data: {
-        completed: false,
-        task: sendData.task,
-      },
+  const el = useRef(null);
+  useEffect(() => {
+    const typed = new Typed(el.current, {
+      strings: [
+        "frontend programuotojas!",
+        "backend programuotojas!",
+        "fullstack programuotojas!",
+      ],
+      typeSpeed: 100,
+      loop: true,
+      loopCount: Infinity,
+      cursorChar: "|",
+    });
+    return () => {
+      typed.destroy();
     };
-    if (sendData.task.length > 0) {
-      await addTodo(body).unwrap();
-      form.querySelector("#task").value = "";
-    }
-  }
+  }, []);
 
-  async function removeTodo(id) {
-    await deleteTodo(id).unwrap();
-  }
-
-  async function setIvykdyta(e, id) {
-    // console.log(e.currentTarget.checked);
-    await updateTodo({
-      completed: e.currentTarget.checked,
-      taskId: id,
-    }).unwrap();
-  }
-  //****************************************************** */
-
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
-  if (isLoading) return <h1>Loading...</h1>;
   return (
     <>
-      <div>
-        <h1>
-          {fraze ? fraze.data + " " + getDate(fraze.time) : "Nėra duomenų"}
-        </h1>
-        <input ref={input} placeholder="Įveskite frazę"></input>
-        <button
-          onClick={() => {
-            // handlesubmit();
-          }}
-          className="btn btn-active"
-        >
-          Spausti
-        </button>
-      </div>
-      <div>
-        <h1>{fraze1 ? fraze1.data + " " + fraze1.name : "Nėra duomenų"}</h1>
-        <input ref={input1} placeholder="Įveskite frazę"></input>
-        <button
-          onClick={() => {
-            // handlesubmit1();
-          }}
-          className="btn btn-active"
-        >
-          Spausti
-        </button>
-        <ReactStars
-          count={5}
-          onChange={ratingChanged}
-          size={36}
-          color2={"#ffd700"}
-          value={1.4}
-          half={false}
-          edit={true}
-        />
-
-        <ReactStars1
-          onChange={onChange}
-          // value={4.7}
-          isEdit={true}
-          size={36}
-          activeColors={["red", "orange", "#FFCE00", "#9177FF", "#8568FC"]}
-        />
-
-        <ReactStars2
-          onChange={onChange2}
-          value={4.2}
-          // isEdit={true}
-          size={36}
-          activeColors={["red", "orange", "#FFCE00", "#9177FF", "#8568FC"]}
-        />
-      </div>
-      <div className="d-flex flex-column">
-        <form className="p-2">
-          <div className="mb-3">
-            <label htmlFor="task" className="form-label">
-              Užduotis
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              name="task"
-              id="task"
-              aria-describedby="helpId"
-              placeholder=""
-            />
-          </div>
-
-          <button
-            onClick={(event) => setTodo(event)}
-            type="button"
-            name=""
-            id=""
-            className="btn btn-active"
+      <div className="bg-gray-100 rounded">
+        {/* <h1 className="text-center">This is my home page</h1> */}
+        <div className="flex flex-row basis-10">
+          <div
+            className="flex-1 flex flex-col justify-center min-h-[600px] rounded opacity-100"
+            style={{
+              backgroundImage: `url(${backGImage})`,
+              backgroundSize: "contain",
+              backgroundPosition: "left",
+            }}
           >
-            Sukurti užduotį
-          </button>
-        </form>
-        <div className="d-flex flex-column gap-2">
-          {data.map((cur) => {
-            return (
-              <div key={cur._id} className="d-flex flex-row gap-3">
-                <span
-                  className={
-                    cur.completed
-                      ? `bg-success text-decoration-line-through p-2 text-center rounded`
-                      : `bg-warning p-2 text-center rounded`
-                  }
-                >
-                  {cur.task}
-                </span>
-                <input
-                  type="checkbox"
-                  onChange={(event) => setIvykdyta(event, cur._id)}
-                  checked={cur.completed}
-                />
-                <span>
-                  <button
-                    type="button"
-                    name=""
-                    id=""
-                    className="btn btn-active"
-                    onClick={() => removeTodo(cur._id)}
+            <div>
+              <div className="bg-white/10 backdrop-blur-lg p-10 rounded ml-20 mr-20">
+                <div className="flex-1 flex flex-col items-center justify-center">
+                  <p
+                    style={{
+                      fontFamily: "Josefin Sans",
+                      fontSize: 48,
+                      fontWeight: "bold",
+                    }}
                   >
-                    Trinti užduotį
-                  </button>
-                </span>
+                    <h1>Sveiki, mano vardas</h1>
+                    Rolandas
+                  </p>
+                  <h1> ir aš esu </h1>
+                  <h1>
+                    <span ref={el} />
+                  </h1>
+                </div>
               </div>
-            );
-          })}
+            </div>
+          </div>
         </div>
       </div>
     </>
