@@ -94,7 +94,7 @@ function TodoPage(props) {
   //****************************************************** */
 
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
   }, [data]);
   if (isLoading) return <h1>Loading...</h1>;
   return (
