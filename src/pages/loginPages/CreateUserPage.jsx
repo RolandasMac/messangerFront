@@ -79,8 +79,22 @@ function CreateUserPage() {
     const { message, success, createdUser } = await createUser(
       formData
     ).unwrap();
+
     if (success) {
-      navigate("/login");
+      setValidateError(message);
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+        setValidateError("");
+        navigate("/login");
+      }, 5000);
+    } else {
+      setValidateError(message);
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+        setValidateError("");
+      }, 5000);
     }
   }
 

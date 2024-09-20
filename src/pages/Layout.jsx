@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getConvList } from "../reducers/conversations/convListSlice";
+import FooterComponent from "../components/FooterComponent";
 
 function Layout(props) {
   const currentConversation = useSelector((state) => {
@@ -67,6 +68,7 @@ function Layout(props) {
           <Outlet></Outlet>
         </div>
       </div>
+      <FooterComponent />
     </div>
   );
 }
