@@ -44,7 +44,7 @@ function ConversationsPage({ socket }) {
             setCurrentConv={setCurrentConv}
           />
         </div>
-        <div className="flex-1">
+        <div className="flex-1 mb-5">
           <h2 className="text-center">Susirašinėjimai</h2>
           {selectedConversation ? (
             <MessageList socket={socket} convId={convId} />
