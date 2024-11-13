@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { backHost } from "../plugins/host";
 function ContactPage() {
   const [error, setError] = useState(null);
 
@@ -35,7 +35,7 @@ function ContactPage() {
       return;
     }
 
-    fetch("https://localhost:4001/contacts/sendemailmessage", {
+    fetch(`${backHost}contacts/sendemailmessage`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -26,12 +26,12 @@ function AboutPage() {
       <div>
         <h1 className="text-center">Jaunesnysis full-stack programuotojas</h1>
         <div className="flex flex-row justify-around items-center p-5">
-          <div className="avatar">
+          <div className="avatar mr-5">
             <div className="ring-gray ring-offset-base-100 w-48 rounded-full ring ring-offset-2">
-              <img src="https://res.cloudinary.com/drqcofqnv/image/upload/v1726068055/ekkrdwksj5lsqcfoffkd.jpg" />
+              <img src="https://res.cloudinary.com/drqcofqnv/image/upload/v1727267229/k5bdza1j1royaahjmlam.jpg" />
             </div>
           </div>
-          <ul className="columns-2">
+          <ul className="lg:columns-2">
             <li>
               <strong>Gimtadienis: </strong> 1975 spalio mėn. 23 d.
             </li>
@@ -48,8 +48,8 @@ function AboutPage() {
               <strong>Amžius: </strong>48
             </li>
             <li>
-              <strong>Išsilavinimas: </strong>jaunesnysis full-stack
-              programuotojas
+              <strong>Išsilavinimas: </strong>CodeAcademy 1064 val. Jaunesnysis
+              full-stack programuotojas
             </li>
             <li>
               <strong>El. paštas: </strong>rolandas.macius@gmail.com
@@ -62,7 +62,7 @@ function AboutPage() {
       </div>
       <div className="p-3">
         <h1 className="text-center">Įgudžiai</h1>
-        <div className="m-5 flex flex-row justify-center gap-3">
+        <div className="m-5 flex flex-row justify-center gap-3 flex-wrap">
           <img src={html} alt="html" />
           <img src={css} alt="css" />
           <img src={js} alt="js" />

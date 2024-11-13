@@ -1,0 +1,56 @@
+.App .Comp1 {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.App .Comp1 .slider {
+  height: 50vh;
+}
+.App .Comp1 .slider .imageShow {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.App .Comp1 .slider .imageShow img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  height: 100%;
+  -o-object-position: center;
+     object-position: center;
+  transition: 0.3s ease;
+}
+.App .Comp1 .slider .imageShow h3 {
+  font-size: 56px;
+}
+.App .Comp1 .slider .imageShow h3:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+.App .Comp1 .slider .imageShow h3:active {
+  transform: scale(0.95);
+}
+.App .Comp1 .imageStore {
+  position: relative;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 10vh;
+  white-space: nowrap;
+  overflow-x: scroll;
+}
+.App .Comp1 .imageStore img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  height: 100%;
+  width: 10%;
+  transition: 0.3s ease;
+}
+.App .Comp1 .imageStore .imgContainer {
+  position: absolute;
+  border: 3px solid red;
+}/*# sourceMappingURL=style.css.map */

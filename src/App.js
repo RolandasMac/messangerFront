@@ -33,6 +33,10 @@ import { backSocketHost } from "./plugins/host.js";
 import AboutPage from "./pages/AboutPage.jsx";
 import ResumePage from "./pages/ResumePage.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
+import CinemaPage from "./pages/CinemaPage.jsx";
+import SliderPage from "./pages/SliderPage.jsx";
+import SendSmsPage from "./pages/SensdSmsPage";
+import CanvasPage from "./pages/CanvasPage";
 
 function App() {
   const oneConv = useSelector((state) => {
@@ -148,6 +152,9 @@ function App() {
           <Route path="about" element={<AboutPage />} />
           <Route path="resume" element={<ResumePage />} />
           <Route path="contact" element={<ContactPage />} />
+          <Route path="cinema" element={<CinemaPage />} />
+          <Route path="canvas" element={<CanvasPage />} />
+          {/* <Route path="slider" element={<SliderPage />} /> */}
           <Route
             path="todo"
             element={
@@ -219,6 +226,14 @@ function App() {
             element={
               <WithLoginComponent>
                 <ChanheEmailPage socket={socket} />
+              </WithLoginComponent>
+            }
+          />
+          <Route
+            path="sendsms"
+            element={
+              <WithLoginComponent>
+                <SendSmsPage />
               </WithLoginComponent>
             }
           />

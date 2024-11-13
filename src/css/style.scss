@@ -1,0 +1,65 @@
+.App {
+  .Comp1 {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+    .slider {
+      height: 50vh;
+      .imageShow {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+          object-position: center;
+          transition: 0.3s ease;
+        }
+        h3 {
+          font-size: 56px;
+          &:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+          }
+          &:active {
+            transform: scale(0.95);
+          }
+        }
+      }
+    }
+    .imageStore {
+      position: relative;
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      //gap: 20px;
+      height: 10vh;
+      white-space: nowrap;
+      overflow-x: scroll;
+      img {
+        object-fit: cover;
+        object-position: center;
+        height: 100%;
+        width: 10%;
+        //width: 30%;
+        //transform: translateX(100px);
+        transition: 0.3s ease;
+      }
+      .imgContainer {
+        position: absolute;
+        border: 3px solid red;
+      }
+      //.onshow{
+      //
+      //  border: 1px solid red;
+      //  transform: scale(1.15);
+      //}
+    }
+  }
+  .Comp2 {
+  }
+}
