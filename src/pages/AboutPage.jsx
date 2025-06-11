@@ -11,17 +11,37 @@ import mongo from "../icons/mongodb.png";
 import php from "../icons/php.png";
 
 function AboutPage() {
+  function calculateAge(birthDateString) {
+    const birthDate = new Date(birthDateString); // Gimimo data kaip Date objektas
+    const today = new Date(); // Dabartinė data kaip Date objektas
+
+    let age = today.getFullYear() - birthDate.getFullYear(); // Skirtumas metais
+
+    const monthDifference = today.getMonth() - birthDate.getMonth(); // Mėnesių skirtumas
+
+    // Jei dabartinis mėnuo yra mažesnis nei gimimo mėnuo, arba
+    // jei mėnesiai sutampa, bet dabartinė diena yra mažesnė už gimimo dieną,
+    // reiškia, kad gimtadienis dar nebuvo šiais metais, todėl atimame 1 metus.
+    if (
+      monthDifference < 0 ||
+      (monthDifference === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    return age;
+  }
   return (
     <div className="bg-gray-200 rounded">
       <h1 className="text-center">Apie mane</h1>
       <p className="p-5 text-justify">
-        Esu 48 metų karjerą baigęs pareigūnas, siekiantis naujos karjeros
-        internetinių technologijų srityje kaip web programuotojas. Po 27 metų
-        patirties teisėsaugos srityje nusprendžiau pasinerti į IT pasaulį. Turiu
-        praktinių žinių tiek front-end, tiek back-end kūrime, nuolat tobulinu
-        savo programavimo įgūdžius ir esu pasiruošęs prisidėti prie inovatyvių
-        projektų. Turiu stiprius problemų sprendimo, kūrybinio mąstymo bei
-        atsakingo darbo įgūdžius.
+        Esu {calculateAge("1975-10-23")} metų karjerą baigęs pareigūnas,
+        siekiantis naujos karjeros internetinių technologijų srityje kaip web
+        programuotojas. Po 27 metų patirties teisėsaugos srityje nusprendžiau
+        pasinerti į IT pasaulį. Turiu praktinių žinių tiek front-end, tiek
+        back-end kūrime, nuolat tobulinu savo programavimo įgūdžius ir esu
+        pasiruošęs prisidėti prie inovatyvių projektų. Turiu stiprius problemų
+        sprendimo, kūrybinio mąstymo bei atsakingo darbo įgūdžius.
       </p>
       <div>
         <h1 className="text-center">Jaunesnysis full-stack programuotojas</h1>
@@ -45,7 +65,8 @@ function AboutPage() {
               <strong>Gyvenu: </strong>Šiauliai, Lietuva
             </li>
             <li>
-              <strong>Amžius: </strong>48
+              <strong>Amžius: </strong>
+              {calculateAge("1975-10-23")}
             </li>
             <li>
               <strong>Išsilavinimas: </strong>CodeAcademy 1064 val. Jaunesnysis
