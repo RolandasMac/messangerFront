@@ -9,6 +9,10 @@ import tailwind from "../icons/tailwind-css.png";
 import mysql from "../icons/mysql.png";
 import mongo from "../icons/mongodb.png";
 import php from "../icons/php.png";
+import laravel from "../icons/laravel.png";
+import nuxt from "../icons/nuxt.png";
+import next from "../icons/next.png";
+import vue from "../icons/vue.png";
 
 function AboutPage() {
   function calculateAge(birthDateString) {
@@ -84,17 +88,22 @@ function AboutPage() {
       <div className="p-3">
         <h1 className="text-center">Įgudžiai</h1>
         <div className="m-5 flex flex-row justify-center gap-3 flex-wrap">
-          <img src={html} alt="html" />
-          <img src={css} alt="css" />
-          <img src={js} alt="js" />
-          <img src={react} alt="react" />
-          <img src={node} alt="nodejs" />
-          <img src={redux} alt="redux" />
-          <img src={bootstrap} alt="bootstrap" />
-          <img src={tailwind} alt="tailwind" />
-          <img src={mysql} alt="mysql" />
-          <img src={mongo} alt="mongodb" />
-          <img src={php} alt="php" />
+          <img src={html} alt="html" className="h-10" />
+          <img src={css} alt="css" className="h-10" />
+          <img src={js} alt="js" className="h-10" />
+          <img src={react} alt="react" className="h-10" />
+          <img src={vue} alt="vue" className="h-10" />
+          <img src={next} alt="next" className="h-10" />
+          <img src={nuxt} alt="nuxt" className="h-10" />
+
+          <img src={node} alt="nodejs" className="h-10" />
+          <img src={redux} alt="redux" className="h-10" />
+          <img src={bootstrap} alt="bootstrap" className="h-10" />
+          <img src={tailwind} alt="tailwind" className="h-10" />
+          <img src={mysql} alt="mysql" className="h-10" />
+          <img src={mongo} alt="mongodb" className="h-10" />
+          <img src={php} alt="php" className="h-10" />
+          <img src={laravel} alt="laravel" className="h-10" />
         </div>
       </div>
     </div>

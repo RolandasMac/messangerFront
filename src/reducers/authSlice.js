@@ -42,7 +42,7 @@ const authSlice = createAppSlice({
             headers: {
               "Content-Type": "application/json",
               // "Access-Control-Allow-Credentials": true,
-              "Access-Control-Allow-Headers": "Coookie",
+              // "Access-Control-Allow-Headers": "Coookie",
             },
             credentials: "include",
             body: JSON.stringify(sendData),
@@ -140,7 +140,7 @@ const authSlice = createAppSlice({
             headers: {
               "Content-Type": "application/json",
               // "Access-Control-Allow-Credentials": true,
-              "Access-Control-Allow-Headers": "Coookie",
+              // "Access-Control-Allow-Headers": "Coookie",
             },
             credentials: "include",
             mode: "cors",
@@ -189,7 +189,7 @@ const authSlice = createAppSlice({
               // "Content-Type": "application/json",
               "Content-Type": "multipart/form-data",
               // "Access-Control-Allow-Credentials": true,
-              "Access-Control-Allow-Headers": "Coookie",
+              // "Access-Control-Allow-Headers": "Coookie",
             },
             credentials: "include",
             mode: "cors",
@@ -279,7 +279,7 @@ const authSlice = createAppSlice({
             headers: {
               "Content-Type": "application/json",
               // "Access-Control-Allow-Credentials": true,
-              "Access-Control-Allow-Headers": "Coookie",
+              // "Access-Control-Allow-Headers": "Coookie",
             },
             credentials: "include",
             body: JSON.stringify(sendData),
@@ -326,7 +326,7 @@ const authSlice = createAppSlice({
             headers: {
               "Content-Type": "application/json",
               // "Access-Control-Allow-Credentials": true,
-              "Access-Control-Allow-Headers": "Coookie",
+              // "Access-Control-Allow-Headers": "Coookie",
             },
             credentials: "include",
             body: JSON.stringify(sendData),
